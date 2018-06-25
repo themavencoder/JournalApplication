@@ -54,6 +54,7 @@ public class UserSignupActivity extends AppCompatActivity implements View.OnClic
                 break;
             case R.id.sign_in_button:
                 finish();
+                break;
             case R.id.sign_up_button:
                 String email = inputEmail.getText().toString().trim();
                 String password = inputPassword.getText().toString().trim();

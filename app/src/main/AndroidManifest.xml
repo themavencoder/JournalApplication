@@ -30,7 +30,13 @@
 
 
         </activity>
-        <activity android:name=".Userauthentication.UserResetPasswordActivity"></activity>
+        <activity
+            android:name=".Userauthentication.UserResetPasswordActivity"
+
+            android:theme="@style/AppTheme.NoActionBar">
+
+
+        </activity>
     </application>
 
 </manifest>
