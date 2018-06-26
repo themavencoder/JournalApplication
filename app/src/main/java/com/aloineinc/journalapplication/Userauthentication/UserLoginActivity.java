@@ -52,6 +52,7 @@ public class UserLoginActivity extends AppCompatActivity implements View.OnClick
             @Override
             public void onAuthStateChanged(@NonNull FirebaseAuth firebaseAuth) {
                 if(firebaseAuth.getCurrentUser() != null) {
+                    progressBar.setVisibility(View.GONE);
                     startActivity(new Intent(UserLoginActivity.this, MainActivity.class));
                 }
             }
@@ -141,6 +142,7 @@ public class UserLoginActivity extends AppCompatActivity implements View.OnClick
                 });
                 break;
             case R.id.googleButton:
+              //  progressBar.setVisibility(View.VISIBLE);
                 signIn();
         }
 
