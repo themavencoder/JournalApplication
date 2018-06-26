@@ -142,7 +142,7 @@ public class UserLoginActivity extends AppCompatActivity implements View.OnClick
                 });
                 break;
             case R.id.googleButton:
-              //  progressBar.setVisibility(View.VISIBLE);
+               progressBar.setVisibility(View.VISIBLE);
                 signIn();
         }
 
