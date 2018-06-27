@@ -71,6 +71,7 @@ public class MainActivity extends AppCompatActivity {
         mRecyclerView.setLayoutManager(mLayoutManager);
         mRecyclerView.setItemAnimator(new DefaultItemAnimator());
         mRecyclerView.addItemDecoration(new SeparatorItemDecoration(this, LinearLayoutManager.VERTICAL, 16));
+        mRecyclerView.setAdapter(mJournalsAdapter);
 
 
 
