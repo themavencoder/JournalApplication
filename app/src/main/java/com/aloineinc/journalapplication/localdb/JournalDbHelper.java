@@ -13,7 +13,6 @@ import java.util.List;
 
 public class JournalDbHelper extends SQLiteOpenHelper {
 
-
     // Database Version
     private static final int DATABASE_VERSION = 1;
 
@@ -145,6 +144,4 @@ public class JournalDbHelper extends SQLiteOpenHelper {
                 new String[]{String.valueOf(journal.getId())});
         db.close();
     }
-
-
 }

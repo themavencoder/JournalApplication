@@ -5,11 +5,11 @@ public class JournalModel {
 
     public static final String COLUMN_ID = "id";
     public static final String COLUMN_JOURNAL = "journal";
-    public static final String COLUMN_INTERVAL = "interval";
+    public static final String COLUMN_INTERVAL = "timestamp";
 
     private int id;
     private String journal;
-    private String interval;
+    private String timestamp;
 
 
     // Create table SQL query
@@ -23,10 +23,10 @@ public class JournalModel {
     public JournalModel() {
     }
 
-    public JournalModel(int id, String journal, String interval) {
+    public JournalModel(int id, String journal, String timestamp) {
         this.id = id;
         this.journal = journal;
-        this.interval = interval;
+        this.timestamp = timestamp;
     }
 
     public int getId() {
@@ -42,7 +42,7 @@ public class JournalModel {
     }
 
     public String getInterval() {
-        return interval;
+        return timestamp;
     }
 
     public void setId(int id) {
@@ -50,8 +50,6 @@ public class JournalModel {
     }
 
     public void setInterval(String timestamp) {
-        this.interval = interval;
+        this.timestamp = timestamp;
     }
-
-
 }

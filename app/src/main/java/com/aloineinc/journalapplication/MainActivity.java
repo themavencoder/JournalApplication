@@ -34,8 +34,8 @@ import java.util.List;
 
 public class MainActivity extends AppCompatActivity {
 
-    private FirebaseAuth firebaseAuth;
-    private FirebaseAuth.AuthStateListener mAuthStateListener;
+  //  private FirebaseAuth firebaseAuth;
+    //private FirebaseAuth.AuthStateListener mAuthStateListener;
 
     private JournalsAdapter mJournalsAdapter;
     private List<JournalModel> journalsList = new ArrayList<>();
@@ -67,6 +67,7 @@ public class MainActivity extends AppCompatActivity {
                 showJournalDialog(false, null, -1);
             }
         });
+
         mJournalsAdapter = new JournalsAdapter(this, journalsList);
         RecyclerView.LayoutManager mLayoutManager = new LinearLayoutManager(getApplicationContext());
         mRecyclerView.setLayoutManager(mLayoutManager);
@@ -76,22 +77,11 @@ public class MainActivity extends AppCompatActivity {
 
         controlEmptyJournals();
 
-
-
-
-
-
-
-        firebaseAuth = FirebaseAuth.getInstance();
-        mAuthStateListener = new FirebaseAuth.AuthStateListener() {
-            @Override
-            public void onAuthStateChanged(@NonNull FirebaseAuth firebaseAuth) {
-                if(firebaseAuth.getCurrentUser() == null) {
-                        startActivity(new Intent(MainActivity.this, UserLoginActivity.class));
-                }
-
-            }
-        };
+        /**
+         * On long press on RecyclerView item, open alert dialog
+         * with options to choose
+         * Edit and Delete
+         * */
         mRecyclerView.addOnItemTouchListener(new RecyclerTouchListener(this,
                 mRecyclerView, new RecyclerTouchListener.ClickListener() {
             @Override
@@ -104,45 +94,28 @@ public class MainActivity extends AppCompatActivity {
             }
         }));
 
-    }
+
+        /**
+         * On long press on RecyclerView item, open alert dialog
+         * with options to choose
+         * Edit and Delete
+         * */
 
 
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        MenuInflater inflater = getMenuInflater();
-        inflater.inflate(R.menu.logout, menu);
-        return true;
-    }
 
 
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        switch(item.getItemId()) {
 
-            case R.id.logout:
-                firebaseAuth.signOut();
+//        firebaseAuth = FirebaseAuth.getInstance();
+//        mAuthStateListener = new FirebaseAuth.AuthStateListener() {
+//            @Override
+//            public void onAuthStateChanged(@NonNull FirebaseAuth firebaseAuth) {
+//                if(firebaseAuth.getCurrentUser() == null) {
+//                        startActivity(new Intent(MainActivity.this, UserLoginActivity.class));
+//                }
+//
+//            }
+//        };
 
-        }
-
-        return super.onOptionsItemSelected(item);
-
-    }
-
-
-    @Override
-    protected void onStart() {
-        super.onStart();
-        firebaseAuth.addAuthStateListener(mAuthStateListener);
-    }
-
-    private void controlEmptyJournals() {
-        // you can check journalsList.size() > 0
-
-        if (mDb.getJournalsCount() > 0) {
-            mJournalsView.setVisibility(View.GONE);
-        } else {
-            mJournalsView.setVisibility(View.VISIBLE);
-        }
     }
     private void createJournal(String journal) {
         // inserting journal in db and getting
@@ -162,6 +135,10 @@ public class MainActivity extends AppCompatActivity {
             controlEmptyJournals();
         }
     }
+    /**
+     * Updating journal in db and updating
+     * item in the list by its position
+     */
     private void updateJournal(String journal, int position) {
         JournalModel n = journalsList.get(position);
         // updating journal text
@@ -177,6 +154,10 @@ public class MainActivity extends AppCompatActivity {
         controlEmptyJournals();
     }
 
+    /**
+     * Deleting journal from SQLite and removing the
+     * item from the list by its position
+     */
     private void deleteJournal(int position) {
         // deleting the journal from db
         mDb.deleteJournal(journalsList.get(position));
@@ -188,6 +169,34 @@ public class MainActivity extends AppCompatActivity {
         controlEmptyJournals();
     }
 
+    /**
+     * Opens dialog with Edit - Delete options
+     * Edit - 0
+     * Delete - 0
+     */
+    private void showActionsDialog(final int position) {
+        CharSequence colors[] = new CharSequence[]{"Edit", "Delete"};
+
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setTitle("Choose option");
+        builder.setItems(colors, new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                if (which == 0) {
+                    showJournalDialog(true, journalsList.get(position), position);
+                } else {
+                    deleteJournal(position);
+                }
+            }
+        });
+        builder.show();
+    }
+    /**
+     * Shows alert dialog with EditText options to enter / edit
+     * a journal.
+     * when shouldUpdate=true, it automatically displays old journal and changes the
+     * button text to UPDATE
+     */
     private void showJournalDialog(final boolean shouldUpdate, final JournalModel journal, final int position) {
         LayoutInflater layoutInflaterAndroid = LayoutInflater.from(getApplicationContext());
         View view = layoutInflaterAndroid.inflate(R.layout.journal_dialog, null);
@@ -243,22 +252,47 @@ public class MainActivity extends AppCompatActivity {
         });
     }
 
-    private void showActionsDialog(final int position) {
-        CharSequence colors[] = new CharSequence[]{"Edit", "Delete"};
+    private void controlEmptyJournals() {
+        // you can check journalsList.size() > 0
 
-        AlertDialog.Builder builder = new AlertDialog.Builder(this);
-        builder.setTitle("Choose option");
-        builder.setItems(colors, new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialog, int which) {
-                if (which == 0) {
-                    showJournalDialog(true, journalsList.get(position), position);
-                } else {
-                    deleteJournal(position);
-                }
-            }
-        });
-        builder.show();
+        if (mDb.getJournalsCount() > 0) {
+            mJournalsView.setVisibility(View.GONE);
+        } else {
+            mJournalsView.setVisibility(View.VISIBLE);
+        }
     }
+
+
+
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        MenuInflater inflater = getMenuInflater();
+        inflater.inflate(R.menu.logout, menu);
+        return true;
+    }
+
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+//        switch(item.getItemId()) {
+//
+//            case R.id.logout:
+//                firebaseAuth.signOut();
+//
+//        }
+//
+  return super.onOptionsItemSelected(item);
+
+    }
+
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+//        firebaseAuth.addAuthStateListener(mAuthStateListener);
+    }
+
+
 
 }

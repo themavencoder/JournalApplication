@@ -16,6 +16,7 @@ import java.util.Date;
 import java.util.List;
 
 public class JournalsAdapter extends RecyclerView.Adapter<JournalsAdapter.JournalsViewHolder> {
+
     private Context context;
     private List<JournalModel> journalsList;
 
