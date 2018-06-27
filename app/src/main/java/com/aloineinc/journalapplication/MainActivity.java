@@ -209,5 +209,22 @@ public class MainActivity extends AppCompatActivity {
         });
     }
 
+    private void showActionsDialog(final int position) {
+        CharSequence colors[] = new CharSequence[]{"Edit", "Delete"};
+
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setTitle("Choose option");
+        builder.setItems(colors, new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                if (which == 0) {
+                    showJournalDialog(true, journalsList.get(position), position);
+                } else {
+                    deleteJournal(position);
+                }
+            }
+        });
+        builder.show();
+    }
 
 }
