@@ -75,18 +75,7 @@ public class MainActivity extends AppCompatActivity {
         mRecyclerView.setAdapter(mJournalsAdapter);
 
         controlEmptyJournals();
-        mRecyclerView.addOnItemTouchListener(new RecyclerTouchListener(this,
-                mRecyclerView, new RecyclerTouchListener.ClickListener() {
-            @Override
-            public void onClick(View view, final int position) {
-            }
 
-            @Override
-            public void onLongClick(View view, int position) {
-                showActionsDialog(position);
-            }
-        }));
-    }
 
 
 
@@ -103,6 +92,18 @@ public class MainActivity extends AppCompatActivity {
 
             }
         };
+        mRecyclerView.addOnItemTouchListener(new RecyclerTouchListener(this,
+                mRecyclerView, new RecyclerTouchListener.ClickListener() {
+            @Override
+            public void onClick(View view, final int position) {
+            }
+
+            @Override
+            public void onLongClick(View view, int position) {
+                showActionsDialog(position);
+            }
+        }));
+
     }
 
 
