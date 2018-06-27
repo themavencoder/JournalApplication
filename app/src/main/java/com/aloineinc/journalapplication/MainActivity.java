@@ -45,6 +45,8 @@ public class MainActivity extends AppCompatActivity {
 
     private JournalDbHelper mDb;
 
+    private Firebase
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
