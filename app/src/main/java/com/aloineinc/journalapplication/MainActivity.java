@@ -25,6 +25,7 @@ import android.widget.Toast;
 import com.aloineinc.journalapplication.Userauthentication.UserLoginActivity;
 import com.aloineinc.journalapplication.localdb.JournalDbHelper;
 import com.aloineinc.journalapplication.localdb.model.JournalModel;
+import com.aloineinc.journalapplication.localdb.utilities.SeparatorItemDecoration;
 import com.google.firebase.auth.FirebaseAuth;
 
 import java.util.ArrayList;
@@ -69,6 +70,8 @@ public class MainActivity extends AppCompatActivity {
         RecyclerView.LayoutManager mLayoutManager = new LinearLayoutManager(getApplicationContext());
         mRecyclerView.setLayoutManager(mLayoutManager);
         mRecyclerView.setItemAnimator(new DefaultItemAnimator());
+        mRecyclerView.addItemDecoration(new SeparatorItemDecoration(this, LinearLayoutManager.VERTICAL, 16));
+
 
 
 
