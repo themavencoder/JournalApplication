@@ -13,5 +13,7 @@
     <dimen name="dot_margin_right">10dp</dimen>
     <dimen name="interval">14sp</dimen>
     <dimen name="journal_list_text">18sp</dimen>
+    <dimen name="lbl_new_journal_title">20sp</dimen>
+    <dimen name="input_new_journal">20sp</dimen>
 
 </resources>

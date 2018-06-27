@@ -19,4 +19,5 @@
     <color name="btn_logut_bg">#ff6861</color>
     <color name="journal_list_text">#232323</color>
     <color name="interval">#858585</color>
+    <color name="hint_enter_journal">#89c3c3c3</color>
 </resources>

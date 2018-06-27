@@ -28,4 +28,6 @@
     <string name="btn_sign_out">Sign Out</string>
     <string name="lbl_forgot_password">Forgot password?</string>
     <string name="forgot_password_msg">We just need your registered Email Id to sent you password reset instructions.</string>
+    <string name="lbl_new_journal_title">New Journal</string>
+    <string name="hint_enter_journal">Enter your journal!</string>
 </resources>
