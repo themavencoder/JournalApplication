@@ -94,7 +94,7 @@ public class MainActivity extends AppCompatActivity {
         firebaseAuth.addAuthStateListener(mAuthStateListener);
     }
 
-    private void ControlEmptyJournals() {
+    private void controlEmptyJournals() {
         // you can check journalsList.size() > 0
 
         if (mDb.getJournalsCount() > 0) {
