@@ -28,6 +28,8 @@ import com.aloineinc.journalapplication.localdb.model.JournalModel;
 import com.aloineinc.journalapplication.localdb.utilities.RecyclerTouchListener;
 import com.aloineinc.journalapplication.localdb.utilities.SeparatorItemDecoration;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -45,6 +47,8 @@ public class MainActivity extends AppCompatActivity {
 
     private JournalDbHelper mDb;
 
+   // private FirebaseDatabase mFirebaseDatabase;
+   // private DatabaseReference mMessagesDatabaseReference;
 
 
 
@@ -117,9 +121,12 @@ public class MainActivity extends AppCompatActivity {
 
             }
         };
+     //   mFirebaseDatabase = FirebaseDatabase.getInstance();
+       // mMessagesDatabaseReference = mFirebaseDatabase.getReference().child("entries");
 
     }
     private void createJournal(String journal) {
+        //mMessagesDatabaseReference.push().setValue(journal);
         // inserting journal in db and getting
         // newly inserted journal id
         long id = mDb.insertJournal(journal);
