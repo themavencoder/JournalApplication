@@ -16,4 +16,7 @@
     <dimen name="lbl_new_journal_title">20sp</dimen>
     <dimen name="input_new_journal">20sp</dimen>
 
+    <dimen name="msg_no_journals">26sp</dimen>
+    <dimen name="margin_top_no_journals">120dp</dimen>
+
 </resources>
