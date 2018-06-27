@@ -100,7 +100,7 @@ public class UserLoginActivity extends AppCompatActivity implements View.OnClick
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.btn_signup:
-                startActivity(new Intent(UserLoginActivity.this, UserLoginActivity.class));
+                startActivity(new Intent(UserLoginActivity.this, UserSignupActivity.class));
                 break;
             case R.id.btn_reset_password:
                 startActivity(new Intent(UserLoginActivity.this, UserResetPasswordActivity.class));

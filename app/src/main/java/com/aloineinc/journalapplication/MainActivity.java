@@ -34,8 +34,8 @@ import java.util.List;
 
 public class MainActivity extends AppCompatActivity {
 
-  //  private FirebaseAuth firebaseAuth;
-    //private FirebaseAuth.AuthStateListener mAuthStateListener;
+    private FirebaseAuth firebaseAuth;
+    private FirebaseAuth.AuthStateListener mAuthStateListener;
 
     private JournalsAdapter mJournalsAdapter;
     private List<JournalModel> journalsList = new ArrayList<>();
@@ -105,16 +105,16 @@ public class MainActivity extends AppCompatActivity {
 
 
 
-//        firebaseAuth = FirebaseAuth.getInstance();
-//        mAuthStateListener = new FirebaseAuth.AuthStateListener() {
-//            @Override
-//            public void onAuthStateChanged(@NonNull FirebaseAuth firebaseAuth) {
-//                if(firebaseAuth.getCurrentUser() == null) {
-//                        startActivity(new Intent(MainActivity.this, UserLoginActivity.class));
-//                }
-//
-//            }
-//        };
+        firebaseAuth = FirebaseAuth.getInstance();
+        mAuthStateListener = new FirebaseAuth.AuthStateListener() {
+            @Override
+            public void onAuthStateChanged(@NonNull FirebaseAuth firebaseAuth) {
+                if(firebaseAuth.getCurrentUser() == null) {
+                        startActivity(new Intent(MainActivity.this, UserLoginActivity.class));
+                }
+
+            }
+        };
 
     }
     private void createJournal(String journal) {
@@ -275,13 +275,13 @@ public class MainActivity extends AppCompatActivity {
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-//        switch(item.getItemId()) {
-//
-//            case R.id.logout:
-//                firebaseAuth.signOut();
-//
-//        }
-//
+        switch(item.getItemId()) {
+
+            case R.id.logout:
+                firebaseAuth.signOut();
+
+        }
+
   return super.onOptionsItemSelected(item);
 
     }
@@ -290,7 +290,7 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onStart() {
         super.onStart();
-//        firebaseAuth.addAuthStateListener(mAuthStateListener);
+        firebaseAuth.addAuthStateListener(mAuthStateListener);
     }
 
 
