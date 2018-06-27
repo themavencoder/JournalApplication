@@ -88,6 +88,7 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
+
     @Override
     protected void onStart() {
         super.onStart();
@@ -103,4 +104,50 @@ public class MainActivity extends AppCompatActivity {
             mJournalsView.setVisibility(View.VISIBLE);
         }
     }
+    private void createJournal(String journal) {
+        // inserting journal in db and getting
+        // newly inserted journal id
+        long id = mDb.insertJournal(journal);
+
+        // get the newly inserted journal from db
+        JournalModel n = mDb.getJournal(id);
+
+        if (n != null) {
+            // adding new journal to array list at 0 position
+            journalsList.add(0, n);
+
+            // refreshing the list
+            mJournalsAdapter.notifyDataSetChanged();
+
+            controlEmptyJournals();
+        }
+    }
+    private void updateJournal(String journal, int position) {
+        JournalModel n = journalsList.get(position);
+        // updating journal text
+        n.setJournal(journal);
+
+        // updating journal in db
+        mDb.updateJournal(n);
+
+        // refreshing the list
+        journalsList.set(position, n);
+        mJournalsAdapter.notifyItemChanged(position);
+
+        controlEmptyJournals();
+    }
+
+    private void deleteJournal(int position) {
+        // deleting the journal from db
+        mDb.deleteJournal(journalsList.get(position));
+
+        // removing the journal from the list
+        journalsList.remove(position);
+        mJournalsAdapter.notifyItemRemoved(position);
+
+        controlEmptyJournals();
+    }
+
+
+
 }
