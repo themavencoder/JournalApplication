@@ -25,6 +25,7 @@ import android.widget.Toast;
 import com.aloineinc.journalapplication.Userauthentication.UserLoginActivity;
 import com.aloineinc.journalapplication.localdb.JournalDbHelper;
 import com.aloineinc.journalapplication.localdb.model.JournalModel;
+import com.aloineinc.journalapplication.localdb.utilities.RecyclerTouchListener;
 import com.aloineinc.journalapplication.localdb.utilities.SeparatorItemDecoration;
 import com.google.firebase.auth.FirebaseAuth;
 
@@ -72,6 +73,20 @@ public class MainActivity extends AppCompatActivity {
         mRecyclerView.setItemAnimator(new DefaultItemAnimator());
         mRecyclerView.addItemDecoration(new SeparatorItemDecoration(this, LinearLayoutManager.VERTICAL, 16));
         mRecyclerView.setAdapter(mJournalsAdapter);
+
+        controlEmptyJournals();
+        mRecyclerView.addOnItemTouchListener(new RecyclerTouchListener(this,
+                mRecyclerView, new RecyclerTouchListener.ClickListener() {
+            @Override
+            public void onClick(View view, final int position) {
+            }
+
+            @Override
+            public void onLongClick(View view, int position) {
+                showActionsDialog(position);
+            }
+        }));
+    }
 
 
 
