@@ -47,8 +47,8 @@ public class MainActivity extends AppCompatActivity {
 
     private JournalDbHelper mDb;
 
-   // private FirebaseDatabase mFirebaseDatabase;
-   // private DatabaseReference mMessagesDatabaseReference;
+   private FirebaseDatabase mFirebaseDatabase;
+    private DatabaseReference mMessagesDatabaseReference;
 
 
 
@@ -121,12 +121,12 @@ public class MainActivity extends AppCompatActivity {
 
             }
         };
-     //   mFirebaseDatabase = FirebaseDatabase.getInstance();
-       // mMessagesDatabaseReference = mFirebaseDatabase.getReference().child("entries");
+        mFirebaseDatabase = FirebaseDatabase.getInstance();
+        mMessagesDatabaseReference = mFirebaseDatabase.getReference().child("entries");
 
     }
     private void createJournal(String journal) {
-        //mMessagesDatabaseReference.push().setValue(journal);
+        mMessagesDatabaseReference.push().setValue(journal);
         // inserting journal in db and getting
         // newly inserted journal id
         long id = mDb.insertJournal(journal);
