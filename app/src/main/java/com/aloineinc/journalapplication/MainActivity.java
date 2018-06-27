@@ -1,17 +1,23 @@
 package com.aloineinc.journalapplication;
 
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.support.annotation.NonNull;
 import android.support.design.widget.CoordinatorLayout;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
+import android.text.TextUtils;
+import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.aloineinc.journalapplication.Userauthentication.UserLoginActivity;
 import com.aloineinc.journalapplication.localdb.JournalDbHelper;
@@ -148,6 +154,60 @@ public class MainActivity extends AppCompatActivity {
         controlEmptyJournals();
     }
 
+    private void showJournalDialog(final boolean shouldUpdate, final JournalModel journal, final int position) {
+        LayoutInflater layoutInflaterAndroid = LayoutInflater.from(getApplicationContext());
+        View view = layoutInflaterAndroid.inflate(R.layout.journal_dialog, null);
+
+        AlertDialog.Builder alertDialogBuilderUserInput = new AlertDialog.Builder(MainActivity.this);
+        alertDialogBuilderUserInput.setView(view);
+
+        final EditText inputJournal = view.findViewById(R.id.journal);
+        TextView dialogTitle = view.findViewById(R.id.dialog_title);
+        dialogTitle.setText(!shouldUpdate ? getString(R.string.lbl_new_journal_title) : getString(R.string.lbl_edit_journal_title));
+
+        if (shouldUpdate && journal != null) {
+            inputJournal.setText(journal.getJournal());
+        }
+        alertDialogBuilderUserInput
+                .setCancelable(false)
+                .setPositiveButton(shouldUpdate ? "update" : "save", new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialogBox, int id) {
+
+                    }
+                })
+                .setNegativeButton("cancel",
+                        new DialogInterface.OnClickListener() {
+                            public void onClick(DialogInterface dialogBox, int id) {
+                                dialogBox.cancel();
+                            }
+                        });
+
+        final AlertDialog alertDialog = alertDialogBuilderUserInput.create();
+        alertDialog.show();
+
+        alertDialog.getButton(AlertDialog.BUTTON_POSITIVE).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                // Show toast message when no text is entered
+                if (TextUtils.isEmpty(inputJournal.getText().toString())) {
+                    inputJournal.setError("Field cannot be blank");
+                    Toast.makeText(MainActivity.this, "Enter journal!", Toast.LENGTH_SHORT).show();
+                    return;
+                } else {
+                    alertDialog.dismiss();
+                }
+
+                // check if user updating journal
+                if (shouldUpdate && journal != null) {
+                    // update journal by it's id
+                    updateJournal(inputJournal.getText().toString(), position);
+                } else {
+                    // create new journal
+                    createJournal(inputJournal.getText().toString());
+                }
+            }
+        });
+    }
 
 
 }
