@@ -5,4 +5,13 @@
     <dimen name="fab_margin">16dp</dimen>
     <dimen name="logo_w_h">100dp</dimen>
 
+
+    <dimen name="activity_margin">16dp</dimen>
+    <dimen name="dimen_10">10dp</dimen>
+    <dimen name="dot_height">30dp</dimen>
+    <dimen name="dot_text_size">40sp</dimen>
+    <dimen name="dot_margin_right">10dp</dimen>
+    <dimen name="interval">14sp</dimen>
+    <dimen name="journal_list_text">18sp</dimen>
+
 </resources>
