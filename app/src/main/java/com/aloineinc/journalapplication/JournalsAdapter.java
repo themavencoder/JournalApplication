@@ -54,7 +54,7 @@ public class JournalsAdapter extends RecyclerView.Adapter<JournalsAdapter.Journa
         holder.journal.setText(journal.getJournal());
 
         // Displaying dot from HTML character code
-        holder.dot.setText(Html.fromHtml("&#8226;"));
+        holder.dot.setText(Html.fromHtml("&#8211;"));
 
         // Formatting and displaying intervals
         holder.intervals.setText(formatDate(journal.getInterval()));
@@ -74,7 +74,7 @@ public class JournalsAdapter extends RecyclerView.Adapter<JournalsAdapter.Journa
         try {
             SimpleDateFormat fmt = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
             Date date = fmt.parse(dateStr);
-            SimpleDateFormat fmtOut = new SimpleDateFormat("MMM d");
+            SimpleDateFormat fmtOut = new SimpleDateFormat("yyyy-MM-dd HH:mm");
             return fmtOut.format(date);
         } catch (ParseException e) {
 

@@ -72,7 +72,7 @@ public class MainActivity extends AppCompatActivity {
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         collapsingToolbar =findViewById(R.id.collapsing_toolbar);
-        collapsingToolbar.setTitle("Suleiman Ali Shakir");
+        collapsingToolbar.setTitle("Journals");
         ImageView header = findViewById(R.id.header);
         init();
         journalsList.addAll(mDb.getAllJournals());
