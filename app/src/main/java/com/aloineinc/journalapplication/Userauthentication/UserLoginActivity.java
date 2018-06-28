@@ -9,11 +9,13 @@ import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ProgressBar;
 import android.widget.Toast;
 
 import com.aloineinc.journalapplication.MainActivity;
 import com.aloineinc.journalapplication.R;
+import com.aloineinc.journalapplication.localdb.utilities.EmailValidator;
 import com.google.android.gms.auth.api.Auth;
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
@@ -28,12 +30,12 @@ import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.GoogleAuthProvider;
 
+import org.w3c.dom.Text;
+
 public class UserLoginActivity extends AppCompatActivity implements View.OnClickListener {
     private TextInputEditText inputEmail, inputPassword;
     private ProgressBar progressBar;
-    private Button btnSignup, btnLogin, btnReset;
     private FirebaseAuth firebaseAuth;
-    private SignInButton mGoogleBtn;
     private static final int RC_SIGN_IN = 1;
     private GoogleApiClient mGoogleApiClient;
     private FirebaseAuth mAuth;
@@ -74,6 +76,7 @@ public class UserLoginActivity extends AppCompatActivity implements View.OnClick
         mAuth = FirebaseAuth.getInstance();
 
     }
+
     private void googleSignIn() {
         // Configure Google Sign In
         GoogleSignInOptions gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
@@ -91,11 +94,12 @@ public class UserLoginActivity extends AppCompatActivity implements View.OnClick
                 .build();
 
     }
+
     private void authListener() {
         mAuthStateListener = new FirebaseAuth.AuthStateListener() {
             @Override
             public void onAuthStateChanged(@NonNull FirebaseAuth firebaseAuth) {
-                if(firebaseAuth.getCurrentUser() != null) {
+                if (firebaseAuth.getCurrentUser() != null) {
                     progressBar.setVisibility(View.GONE);
                     startActivity(new Intent(UserLoginActivity.this, MainActivity.class));
                 }
@@ -113,10 +117,10 @@ public class UserLoginActivity extends AppCompatActivity implements View.OnClick
                 startActivity(new Intent(UserLoginActivity.this, UserResetPasswordActivity.class));
                 break;
             case R.id.btn_login:
-                    doLoginBtn();
-                              break;
+                doLoginBtn();
+                break;
             case R.id.googleButton:
-               progressBar.setVisibility(View.VISIBLE);
+                progressBar.setVisibility(View.VISIBLE);
                 signIn();
         }
 
@@ -131,9 +135,14 @@ public class UserLoginActivity extends AppCompatActivity implements View.OnClick
             Toast.makeText(getApplicationContext(), "Enter email address", Toast.LENGTH_SHORT).show();
             return;
         }
+        if (EmailValidator.isValidEmail(email)) {
+            inputEmail.setError("Enter a valid email address");
+            return;
+        }
+
         if (TextUtils.isEmpty(password)) {
-            inputPassword.setError("password is empty");
-            Toast.makeText(getApplicationContext(), "Enter password!", Toast.LENGTH_SHORT).show();
+            inputPassword.setError("Password field is empty");
+            Toast.makeText(getApplicationContext(), "Enter password", Toast.LENGTH_SHORT).show();
             return;
         }
         progressBar.setVisibility(View.VISIBLE);
@@ -189,12 +198,13 @@ public class UserLoginActivity extends AppCompatActivity implements View.OnClick
                         } else {
                             // If sign in fails, display a message to the user.
                             Log.w(TAG, "signInWithCredential:failure", task.getException());
-                           Toast.makeText(UserLoginActivity.this,"Authentication failed",Toast.LENGTH_SHORT).show();
+                            Toast.makeText(UserLoginActivity.this, "Authentication failed", Toast.LENGTH_SHORT).show();
                         }
 
                         // ...
                     }
                 });
     }
+
 
 }
