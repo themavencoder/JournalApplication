@@ -30,6 +30,7 @@ import com.aloineinc.journalapplication.localdb.utilities.SeparatorItemDecoratio
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.Query;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -301,7 +302,6 @@ public class MainActivity extends AppCompatActivity {
         super.onStart();
         firebaseAuth.addAuthStateListener(mAuthStateListener);
     }
-
 
 
 }
