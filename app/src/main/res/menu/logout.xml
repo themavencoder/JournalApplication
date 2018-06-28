@@ -6,6 +6,6 @@
         android:id="@+id/logout"
         android:icon="@drawable/common_google_signin_btn_icon_dark_normal"
         android:title="Log out"
-        app:showAsAction="ifRoom" />
+        app:showAsAction="never" />
 
 </menu>

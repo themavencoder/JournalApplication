@@ -2,13 +2,19 @@ package com.aloineinc.journalapplication;
 
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.support.annotation.NonNull;
+import android.support.design.widget.AppBarLayout;
+import android.support.design.widget.CollapsingToolbarLayout;
 import android.support.design.widget.CoordinatorLayout;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.graphics.Palette;
 import android.support.v7.widget.DefaultItemAnimator;
+import android.support.v7.widget.DividerItemDecoration;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
@@ -19,6 +25,7 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -26,7 +33,6 @@ import com.aloineinc.journalapplication.Userauthentication.UserLoginActivity;
 import com.aloineinc.journalapplication.localdb.JournalDbHelper;
 import com.aloineinc.journalapplication.localdb.model.JournalModel;
 import com.aloineinc.journalapplication.localdb.utilities.RecyclerTouchListener;
-import com.aloineinc.journalapplication.localdb.utilities.SeparatorItemDecoration;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
@@ -51,6 +57,12 @@ public class MainActivity extends AppCompatActivity {
    private FirebaseDatabase mFirebaseDatabase;
     private DatabaseReference mMessagesDatabaseReference;
 
+    private AppBarLayout appBarLayout;
+    private boolean appBarExpanded;
+    private Menu collapsedMenu;
+    private CollapsingToolbarLayout collapsingToolbar;
+    private ImageView header;
+
 
 
     @Override
@@ -59,13 +71,27 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-        mCoordinatorLayout = findViewById(R.id.coordinator_layout);
-        mRecyclerView = findViewById(R.id.recycler_view);
-        mJournalsView = findViewById(R.id.empty_journals_view);
-
-        mDb = new JournalDbHelper(this);
-
+        collapsingToolbar =findViewById(R.id.collapsing_toolbar);
+        collapsingToolbar.setTitle("Suleiman Ali Shakir");
+        ImageView header = findViewById(R.id.header);
+        init();
         journalsList.addAll(mDb.getAllJournals());
+
+        appBarLayout = findViewById(R.id.app_bar_layout);
+        appBarLayout.addOnOffsetChangedListener(new AppBarLayout.OnOffsetChangedListener() {
+            @Override
+            public void onOffsetChanged(AppBarLayout appBarLayout, int verticalOffset) {
+                //  Vertical offset == 0 indicates appBar is fully  expanded.
+                if (Math.abs(verticalOffset) > 200) {
+                    appBarExpanded = false;
+                    invalidateOptionsMenu();
+                } else {
+                    appBarExpanded = true;
+                    invalidateOptionsMenu();
+                }
+            }
+        });
+        gradientImage();
 
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
@@ -79,7 +105,7 @@ public class MainActivity extends AppCompatActivity {
         RecyclerView.LayoutManager mLayoutManager = new LinearLayoutManager(getApplicationContext());
         mRecyclerView.setLayoutManager(mLayoutManager);
         mRecyclerView.setItemAnimator(new DefaultItemAnimator());
-        mRecyclerView.addItemDecoration(new SeparatorItemDecoration(this, LinearLayoutManager.VERTICAL, 16));
+        mRecyclerView.addItemDecoration(new DividerItemDecoration(this,LinearLayoutManager.VERTICAL));
         mRecyclerView.setAdapter(mJournalsAdapter);
 
         controlEmptyJournals();
@@ -124,6 +150,16 @@ public class MainActivity extends AppCompatActivity {
         };
         mFirebaseDatabase = FirebaseDatabase.getInstance();
         mMessagesDatabaseReference = mFirebaseDatabase.getReference().child("entries");
+
+    }
+
+    private void init() {
+        mCoordinatorLayout = findViewById(R.id.coordinator_layout);
+        mRecyclerView = findViewById(R.id.recycler_view);
+        mJournalsView = findViewById(R.id.empty_journals_view);
+
+        mDb = new JournalDbHelper(this);
+
 
     }
     private void createJournal(String journal) {
@@ -279,6 +315,7 @@ public class MainActivity extends AppCompatActivity {
     public boolean onCreateOptionsMenu(Menu menu) {
         MenuInflater inflater = getMenuInflater();
         inflater.inflate(R.menu.logout, menu);
+        collapsedMenu = menu;
         return true;
     }
 
@@ -289,6 +326,10 @@ public class MainActivity extends AppCompatActivity {
 
             case R.id.logout:
                 firebaseAuth.signOut();
+                break;
+            default:
+                showJournalDialog(false, null, -1);
+
 
         }
 
@@ -296,6 +337,19 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
+    @Override
+    public boolean onPrepareOptionsMenu(Menu menu) {
+        if (collapsedMenu != null
+                && (!appBarExpanded || collapsedMenu.size() != 1)) {
+            //collapsed
+            collapsedMenu.add("Add")
+                    .setIcon(R.drawable.ic_add_white_24dp)
+                    .setShowAsAction(MenuItem.SHOW_AS_ACTION_IF_ROOM);
+        } else {
+            //expanded
+        }
+        return super.onPrepareOptionsMenu(collapsedMenu);
+    }
 
     @Override
     protected void onStart() {
@@ -303,5 +357,16 @@ public class MainActivity extends AppCompatActivity {
         firebaseAuth.addAuthStateListener(mAuthStateListener);
     }
 
+    private void gradientImage() {
+        Bitmap bitmap = BitmapFactory.decodeResource(getResources(),
+                R.drawable.header_image);
+        Palette.from(bitmap).generate(new Palette.PaletteAsyncListener() {
+            @Override
+            public void onGenerated(Palette palette) {
+                int mutedColor = palette.getMutedColor(R.attr.colorPrimary);
+                collapsingToolbar.setContentScrimColor(mutedColor);
+            }
+        });
+    }
 
 }
