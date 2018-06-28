@@ -1,6 +1,6 @@
 package com.aloineinc.journalapplication.localdb.utilities;
 
-public  class EmailValidator {
+public abstract class EmailValidator {
     public static boolean isValidEmail(String email)
     {
         String emailRegex ="^[_A-Za-z0-9-\\+]+(\\.[_A-Za-z0-9-]+)*@[A-Za-z0-9-]+(\\.[A-Za-z0-9]+)*(\\.[A-Za-z]{2,})$";
