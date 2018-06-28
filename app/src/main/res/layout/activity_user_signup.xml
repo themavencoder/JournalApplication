@@ -42,7 +42,6 @@
                 android:layout_height="wrap_content"
                 android:focusableInTouchMode="true"
                 android:hint="@string/hint_password"
-                android:imeActionId="@+id/login"
                 android:imeOptions="actionUnspecified"
                 android:inputType="textPassword"
                 android:maxLines="1"
@@ -56,9 +55,10 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="16dp"
-            android:background="@color/colorAccent"
+            android:background="@drawable/button_orange"
             android:text="@string/action_sign_in_short"
-            android:textColor="@android:color/black"
+            android:textAllCaps="false"
+            android:textColor="@color/white"
             android:textStyle="bold" />
 
         <Button

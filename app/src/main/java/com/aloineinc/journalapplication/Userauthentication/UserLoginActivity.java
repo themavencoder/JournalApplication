@@ -135,7 +135,7 @@ public class UserLoginActivity extends AppCompatActivity implements View.OnClick
             Toast.makeText(getApplicationContext(), "Enter email address", Toast.LENGTH_SHORT).show();
             return;
         }
-        if (EmailValidator.isValidEmail(email)) {
+        if (!EmailValidator.isValidEmail(email)) {
             inputEmail.setError("Enter a valid email address");
             return;
         }

@@ -11,6 +11,7 @@ import android.widget.ProgressBar;
 import android.widget.Toast;
 
 import com.aloineinc.journalapplication.R;
+import com.aloineinc.journalapplication.localdb.utilities.EmailValidator;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
@@ -58,6 +59,10 @@ public class UserResetPasswordActivity extends AppCompatActivity implements View
         String email = inputEmail.getText().toString().trim();
         if (TextUtils.isEmpty(email)) {
             Toast.makeText(getApplication(), "Enter your registered email id", Toast.LENGTH_SHORT).show();
+            return;
+        }
+        if (!EmailValidator.isValidEmail(email)) {
+            inputEmail.setError("Enter a valid email address");
             return;
         }
         progressBar.setVisibility(View.VISIBLE);
