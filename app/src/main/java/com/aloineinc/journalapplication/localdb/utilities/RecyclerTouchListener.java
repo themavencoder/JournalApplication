@@ -6,15 +6,16 @@ import android.view.GestureDetector;
 import android.view.MotionEvent;
 import android.view.View;
 
+@SuppressWarnings("ALL")
 public class RecyclerTouchListener implements RecyclerView.OnItemTouchListener {
 
-    private ClickListener clicklistener;
-    private GestureDetector gestureDetector;
+    private final ClickListener mClicklistener;
+    private final GestureDetector mGestureDetector;
 
     public RecyclerTouchListener(Context context, final RecyclerView recycleView, final ClickListener clicklistener) {
 
-        this.clicklistener = clicklistener;
-        gestureDetector = new GestureDetector(context, new GestureDetector.SimpleOnGestureListener() {
+        this.mClicklistener = clicklistener;
+        mGestureDetector = new GestureDetector(context, new GestureDetector.SimpleOnGestureListener() {
             @Override
             public boolean onSingleTapUp(MotionEvent e) {
                 return true;
@@ -33,8 +34,8 @@ public class RecyclerTouchListener implements RecyclerView.OnItemTouchListener {
     @Override
     public boolean onInterceptTouchEvent(RecyclerView rv, MotionEvent e) {
         View child = rv.findChildViewUnder(e.getX(), e.getY());
-        if (child != null && clicklistener != null && gestureDetector.onTouchEvent(e)) {
-            clicklistener.onClick(child, rv.getChildAdapterPosition(child));
+        if (child != null && mClicklistener != null && mGestureDetector.onTouchEvent(e)) {
+            mClicklistener.onClick(child, rv.getChildAdapterPosition(child));
         }
 
         return false;
@@ -50,7 +51,9 @@ public class RecyclerTouchListener implements RecyclerView.OnItemTouchListener {
 
     }
 
+    @SuppressWarnings({"EmptyMethod", "unused"})
     public interface ClickListener {
+        @SuppressWarnings("unused")
         void onClick(View view, int position);
 
         void onLongClick(View view, int position);

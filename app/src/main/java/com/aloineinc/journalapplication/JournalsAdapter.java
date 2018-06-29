@@ -1,6 +1,7 @@
 package com.aloineinc.journalapplication;
 
 import android.content.Context;
+import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
 import android.text.Html;
 import android.view.LayoutInflater;
@@ -10,51 +11,55 @@ import android.widget.TextView;
 
 import com.aloineinc.journalapplication.localdb.model.JournalModel;
 
+import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
+import java.util.Locale;
 
 public class JournalsAdapter extends RecyclerView.Adapter<JournalsAdapter.JournalsViewHolder> {
 
-    private Context context;
-    private List<JournalModel> journalsList;
+    @SuppressWarnings("FieldCanBeLocal")
+    private Context mContext;
+    private final List<JournalModel> mJournalsList;
 
     public class JournalsViewHolder extends RecyclerView.ViewHolder {
-        public TextView journal;
-        public TextView dot;
-        public TextView intervals;
+        final TextView journal;
+       final  TextView dash;
+       final TextView intervals;
 
-        public JournalsViewHolder(View view) {
+        JournalsViewHolder(View view) {
             super(view);
             journal = view.findViewById(R.id.journal);
-            dot = view.findViewById(R.id.dot);
+            dash = view.findViewById(R.id.dot);
             intervals = view.findViewById(R.id.interval);
         }
     }
 
 
     public JournalsAdapter(Context context, List<JournalModel> journalsList) {
-        this.context = context;
-        this.journalsList = journalsList;
+        this.mContext = context;
+        this.mJournalsList = journalsList;
     }
 
     @Override
-    public JournalsViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+    public JournalsViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View itemView = LayoutInflater.from(parent.getContext())
-                .inflate(R.layout.journal_ui, parent, false);
+                .inflate(R.layout.item_journal, parent, false);
 
         return new JournalsViewHolder(itemView);
     }
 
     @Override
-    public void onBindViewHolder(JournalsViewHolder holder, int position) {
-        JournalModel journal = journalsList.get(position);
+    public void onBindViewHolder(@NonNull JournalsViewHolder holder, int position) {
+        JournalModel journal = mJournalsList.get(position);
 
         holder.journal.setText(journal.getJournal());
 
         // Displaying dot from HTML character code
-        holder.dot.setText(Html.fromHtml("&#8211;"));
+        holder.dash.setText(Html.fromHtml("&#8211;"));
 
         // Formatting and displaying intervals
         holder.intervals.setText(formatDate(journal.getInterval()));
@@ -62,7 +67,7 @@ public class JournalsAdapter extends RecyclerView.Adapter<JournalsAdapter.Journa
 
     @Override
     public int getItemCount() {
-        return journalsList.size();
+        return mJournalsList.size();
     }
 
     /**
@@ -71,15 +76,13 @@ public class JournalsAdapter extends RecyclerView.Adapter<JournalsAdapter.Journa
      * Output: Feb 21
      */
     private String formatDate(String dateStr) {
-        try {
-            SimpleDateFormat fmt = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-            Date date = fmt.parse(dateStr);
-            SimpleDateFormat fmtOut = new SimpleDateFormat("yyyy-MM-dd HH:mm");
-            return fmtOut.format(date);
-        } catch (ParseException e) {
 
-        }
+            DateFormat fmt = SimpleDateFormat.getDateInstance(DateFormat.DEFAULT, Locale.ENGLISH);
+            Date date = Calendar.getInstance().getTime();
+            String reportDate = fmt.format(date);
+            return reportDate;
 
-        return "";
+
+
     }
 }

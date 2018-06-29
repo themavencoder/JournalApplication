@@ -3,6 +3,7 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:clickable="true"
+    android:focusable="true"
     android:foreground="?attr/selectableItemBackground"
     android:paddingBottom="@dimen/dimen_10"
     android:paddingLeft="@dimen/activity_margin"
@@ -18,7 +19,8 @@
         android:includeFontPadding="false"
         android:textColor="@color/colorAccent"
         android:lineSpacingExtra="0dp"
-        android:textSize="@dimen/dot_text_size" />
+        android:textSize="@dimen/dot_text_size"
+        android:layout_marginEnd="@dimen/dot_margin_right" />
 
     <TextView
         android:id="@+id/interval"
@@ -26,7 +28,8 @@
         android:layout_height="wrap_content"
         android:layout_toRightOf="@id/dot"
         android:textColor="@color/interval"
-        android:textSize="@dimen/interval" />
+        android:textSize="@dimen/interval"
+        android:layout_toEndOf="@id/dot" />
 
     <TextView
         android:id="@+id/journal"
@@ -35,6 +38,7 @@
         android:layout_below="@id/interval"
         android:layout_toRightOf="@id/dot"
         android:textColor="@color/journal_list_text"
-        android:textSize="@dimen/journal_list_text" />
+        android:textSize="@dimen/journal_list_text"
+        android:layout_toEndOf="@id/dot" />
 
 </RelativeLayout>

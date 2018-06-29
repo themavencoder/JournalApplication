@@ -23,6 +23,7 @@
         android:fontFamily="sans-serif-light"
         android:text="@string/msg_no_journals"
         android:textColor="@color/msg_no_journals"
-        android:textSize="@dimen/msg_no_journals" />
+        android:textSize="@dimen/msg_no_journals"
+        tools:targetApi="jelly_bean" />
 
 </RelativeLayout>

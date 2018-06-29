@@ -1,4 +1,4 @@
-<resources>
+<resources xmlns:tools="http://schemas.android.com/tools">
 
     <!-- Base application theme. -->
     <style name="AppTheme" parent="Theme.AppCompat.Light.DarkActionBar">
@@ -16,18 +16,9 @@
         <item name="windowNoTitle">true</item>
     </style>
 
-    <style name="AppTheme.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />
+    <style name="AppTheme.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" tools:keep="@style/AppTheme_AppBarOverlay" />
 
-    <style name="AppTheme.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
-
-    <style name ="AppTheme.White" parent= "ThemeOverlay.AppCompat.Light"/>
-
-    <style name="MyHintText" parent="TextAppearance.AppCompat.Small"/>
-    <style name="MyEditText" parent="Theme.AppCompat.Light">
-        <item name = "colorControlNormal">@color/colorAccent</item>
-        <item name = "colorControlActivated">@color/colorPrimary</item>
-
-    </style>
+    <style name="AppTheme.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" tools:keep="@style/AppTheme_PopupOverlay" />
 
 
 </resources>

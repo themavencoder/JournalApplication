@@ -3,13 +3,14 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:fitsSystemWindows="true"
-    tools:context=".Userauthentication.UserLoginActivity">
+    tools:context=".userauthentication.UserLoginActivity">
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@color/colorPrimary"
+        android:background="@color/white"
         android:gravity="center"
         android:orientation="vertical"
         android:padding="@dimen/activity_horizontal_margin">
@@ -52,22 +53,24 @@
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
             android:textStyle="bold"
+            android:textSize="15sp"
             android:textAllCaps="false"
             android:layout_marginTop="20dp"
             android:background="@drawable/my_button_bg"
-            android:fontFamily="sans-serif"
+            app:fontFamily="sans-serif"
             android:text="@string/btn_login"
-            android:textColor="@color/white" />
+            android:textColor="@color/colorPrimary" />
 
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_margin="12dp"
             android:layout_gravity="center"
-            android:text="OR"
+            android:text="@string/or"
+            android:textStyle="bold"
+            android:textColor="@color/black"
             android:gravity="center"
             android:textSize="16sp"
-            android:textColor="@color/white"
             />
 
 
@@ -82,11 +85,11 @@
             android:layout_height="wrap_content"
             android:background="@drawable/button_orange"
             android:textAllCaps="false"
-            android:fontFamily="sans-serif"
-
+            app:fontFamily="sans-serif"
+                android:textSize="15sp"
             android:singleLine="true"
-            android:text="Sign in with google"
-            android:textColor="@color/white"
+            android:text="@string/signin"
+            android:textColor="@color/colorAccent"
             android:textStyle="bold">
 
 
@@ -101,24 +104,25 @@
             android:background="@null"
             android:text="@string/btn_link_to_register"
             android:textAllCaps="false"
-            android:textColor="@color/white"
-            android:textSize="15dp" />
+            android:textStyle="bold"
+            android:textColor="@color/colorAccent"
+            android:textSize="15sp" />
 
-        <View android:id="@+id/divider"
+        <View
             android:background="@drawable/divider"
-            android:layout_width="match_parent"
-            android:layout_height="1dp"
-            android:layout_below="@id/btn_signup"
-            android:layout_marginTop="10dp"/>
+            android:layout_width="240dp"
+            android:layout_height="2dp"
+            android:layout_marginTop="1dp"/>
 
         <Button
             android:id="@+id/btn_reset_password"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="10dp"
+            android:layout_marginTop="1dp"
             android:layout_gravity="center"
             android:gravity="center"
             android:background="@null"
+            android:textSize="15sp"
             android:text="@string/btn_forgot_password"
             android:textAllCaps="false"
             android:textColor="@color/colorAccent"
@@ -137,9 +141,7 @@
         android:layout_centerVertical="true"
         android:layout_gravity="center"
         android:gravity="center"
-        android:indeterminate="true"
-        android:indeterminateTint="@color/white"
-        android:indeterminateTintMode="src_atop"
+
         android:visibility="gone" />
 
 </android.support.design.widget.CoordinatorLayout>

@@ -74,6 +74,7 @@ public class JournalDbHelper extends SQLiteOpenHelper {
             cursor.moveToFirst();
 
         // prepare journal object
+        assert cursor != null;
         JournalModel journal = new JournalModel(
                 cursor.getInt(cursor.getColumnIndex(JournalModel.COLUMN_ID)),
                 cursor.getString(cursor.getColumnIndex(JournalModel.COLUMN_JOURNAL)),
@@ -108,6 +109,7 @@ public class JournalDbHelper extends SQLiteOpenHelper {
         }
 
         // close db connection
+        cursor.close();
         db.close();
 
         // return journals list
@@ -127,6 +129,7 @@ public class JournalDbHelper extends SQLiteOpenHelper {
         return count;
     }
 
+    @SuppressWarnings("UnusedReturnValue")
     public int updateJournal(JournalModel journal) {
         SQLiteDatabase db = this.getWritableDatabase();
 

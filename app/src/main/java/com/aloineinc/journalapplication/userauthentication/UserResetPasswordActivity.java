@@ -1,4 +1,4 @@
-package com.aloineinc.journalapplication.Userauthentication;
+package com.aloineinc.journalapplication.userauthentication;
 
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -6,7 +6,6 @@ import android.support.design.widget.TextInputEditText;
 import android.support.v7.app.AppCompatActivity;
 import android.text.TextUtils;
 import android.view.View;
-import android.widget.Button;
 import android.widget.ProgressBar;
 import android.widget.Toast;
 
@@ -17,10 +16,9 @@ import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 
 public class UserResetPasswordActivity extends AppCompatActivity implements View.OnClickListener {
-    private TextInputEditText inputEmail;
-    private Button btnReset, btnBack;
-    private FirebaseAuth firebaseAuth;
-    private ProgressBar progressBar;
+    private TextInputEditText mInputEmail;
+    private FirebaseAuth mFirebaseAuth;
+    private ProgressBar mProgressBar;
 
 
     @Override
@@ -32,10 +30,10 @@ public class UserResetPasswordActivity extends AppCompatActivity implements View
     }
 
     private void init() {
-        firebaseAuth = FirebaseAuth.getInstance();
+        mFirebaseAuth = FirebaseAuth.getInstance();
 
-        inputEmail = findViewById(R.id.email);
-        progressBar = findViewById(R.id.progressBar);
+        mInputEmail = findViewById(R.id.email);
+        mProgressBar = findViewById(R.id.progressBar);
         findViewById(R.id.btn_reset_password).setOnClickListener(this);
         findViewById(R.id.btn_back).setOnClickListener(this);
     }
@@ -56,17 +54,17 @@ public class UserResetPasswordActivity extends AppCompatActivity implements View
     }
 
     private void doRestBtn() {
-        String email = inputEmail.getText().toString().trim();
+        String email = mInputEmail.getText().toString().trim();
         if (TextUtils.isEmpty(email)) {
             Toast.makeText(getApplication(), "Enter your registered email id", Toast.LENGTH_SHORT).show();
             return;
         }
         if (!EmailValidator.isValidEmail(email)) {
-            inputEmail.setError("Enter a valid email address");
+            mInputEmail.setError("Enter a valid email address");
             return;
         }
-        progressBar.setVisibility(View.VISIBLE);
-        firebaseAuth.sendPasswordResetEmail(email).addOnCompleteListener(new OnCompleteListener<Void>() {
+        mProgressBar.setVisibility(View.VISIBLE);
+        mFirebaseAuth.sendPasswordResetEmail(email).addOnCompleteListener(new OnCompleteListener<Void>() {
             @Override
             public void onComplete(@NonNull Task<Void> task) {
                 if (task.isSuccessful()) {
@@ -75,7 +73,7 @@ public class UserResetPasswordActivity extends AppCompatActivity implements View
                     Toast.makeText(UserResetPasswordActivity.this, "Failed to send reset email!", Toast.LENGTH_SHORT).show();
                 }
 
-                progressBar.setVisibility(View.GONE);
+                mProgressBar.setVisibility(View.GONE);
 
             }
         });

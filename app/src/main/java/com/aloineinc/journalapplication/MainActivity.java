@@ -24,19 +24,19 @@ import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.aloineinc.journalapplication.Userauthentication.UserLoginActivity;
+import com.aloineinc.journalapplication.userauthentication.UserLoginActivity;
 import com.aloineinc.journalapplication.localdb.JournalDbHelper;
 import com.aloineinc.journalapplication.localdb.model.JournalModel;
 import com.aloineinc.journalapplication.localdb.utilities.RecyclerTouchListener;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.database.Query;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -47,21 +47,19 @@ public class MainActivity extends AppCompatActivity {
     private FirebaseAuth.AuthStateListener mAuthStateListener;
 
     private JournalsAdapter mJournalsAdapter;
-    private List<JournalModel> journalsList = new ArrayList<>();
+    private final List<JournalModel> mJournalsList = new ArrayList<>();
     private CoordinatorLayout mCoordinatorLayout;
     private RecyclerView mRecyclerView;
     private TextView mJournalsView;
 
     private JournalDbHelper mDb;
 
-   private FirebaseDatabase mFirebaseDatabase;
     private DatabaseReference mMessagesDatabaseReference;
 
-    private AppBarLayout appBarLayout;
-    private boolean appBarExpanded;
-    private Menu collapsedMenu;
-    private CollapsingToolbarLayout collapsingToolbar;
-    private ImageView header;
+    private boolean mAppBarExpanded;
+    private Menu mCollapsedMenu;
+    private CollapsingToolbarLayout mCollapsingToolbar;
+
 
 
 
@@ -71,29 +69,29 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-        collapsingToolbar =findViewById(R.id.collapsing_toolbar);
-        collapsingToolbar.setTitle("Journals");
-        ImageView header = findViewById(R.id.header);
+        mCollapsingToolbar =findViewById(R.id.collapsing_toolbar);
+        mCollapsingToolbar.setTitle("Journals");
+        findViewById(R.id.header);
         init();
-        journalsList.addAll(mDb.getAllJournals());
+        mJournalsList.addAll(mDb.getAllJournals());
 
-        appBarLayout = findViewById(R.id.app_bar_layout);
+        AppBarLayout appBarLayout = findViewById(R.id.app_bar_layout);
         appBarLayout.addOnOffsetChangedListener(new AppBarLayout.OnOffsetChangedListener() {
             @Override
             public void onOffsetChanged(AppBarLayout appBarLayout, int verticalOffset) {
                 //  Vertical offset == 0 indicates appBar is fully  expanded.
                 if (Math.abs(verticalOffset) > 200) {
-                    appBarExpanded = false;
+                    mAppBarExpanded = false;
                     invalidateOptionsMenu();
                 } else {
-                    appBarExpanded = true;
+                    mAppBarExpanded = true;
                     invalidateOptionsMenu();
                 }
             }
         });
         gradientImage();
 
-        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
+        FloatingActionButton fab = findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -101,7 +99,7 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-        mJournalsAdapter = new JournalsAdapter(this, journalsList);
+        mJournalsAdapter = new JournalsAdapter(this, mJournalsList);
         RecyclerView.LayoutManager mLayoutManager = new LinearLayoutManager(getApplicationContext());
         mRecyclerView.setLayoutManager(mLayoutManager);
         mRecyclerView.setItemAnimator(new DefaultItemAnimator());
@@ -110,11 +108,6 @@ public class MainActivity extends AppCompatActivity {
 
         controlEmptyJournals();
 
-        /**
-         * On long press on RecyclerView item, open alert dialog
-         * with options to choose
-         * Edit and Delete
-         * */
         mRecyclerView.addOnItemTouchListener(new RecyclerTouchListener(this,
                 mRecyclerView, new RecyclerTouchListener.ClickListener() {
             @Override
@@ -128,16 +121,6 @@ public class MainActivity extends AppCompatActivity {
         }));
 
 
-        /**
-         * On long press on RecyclerView item, open alert dialog
-         * with options to choose
-         * Edit and Delete
-         * */
-
-
-
-
-
         firebaseAuth = FirebaseAuth.getInstance();
         mAuthStateListener = new FirebaseAuth.AuthStateListener() {
             @Override
@@ -148,7 +131,7 @@ public class MainActivity extends AppCompatActivity {
 
             }
         };
-        mFirebaseDatabase = FirebaseDatabase.getInstance();
+        FirebaseDatabase mFirebaseDatabase = FirebaseDatabase.getInstance();
         mMessagesDatabaseReference = mFirebaseDatabase.getReference().child("entries");
 
     }
@@ -173,7 +156,7 @@ public class MainActivity extends AppCompatActivity {
 
         if (n != null) {
             // adding new journal to array list at 0 position
-            journalsList.add(0, n);
+            mJournalsList.add(0, n);
 
             // refreshing the list
             mJournalsAdapter.notifyDataSetChanged();
@@ -186,7 +169,7 @@ public class MainActivity extends AppCompatActivity {
      * item in the list by its position
      */
     private void updateJournal(String journal, int position) {
-        JournalModel n = journalsList.get(position);
+        JournalModel n = mJournalsList.get(position);
         // updating journal text
         n.setJournal(journal);
 
@@ -194,7 +177,7 @@ public class MainActivity extends AppCompatActivity {
         mDb.updateJournal(n);
 
         // refreshing the list
-        journalsList.set(position, n);
+        mJournalsList.set(position, n);
         mJournalsAdapter.notifyItemChanged(position);
 
         controlEmptyJournals();
@@ -206,10 +189,10 @@ public class MainActivity extends AppCompatActivity {
      */
     private void deleteJournal(int position) {
         // deleting the journal from db
-        mDb.deleteJournal(journalsList.get(position));
+        mDb.deleteJournal(mJournalsList.get(position));
 
         // removing the journal from the list
-        journalsList.remove(position);
+        mJournalsList.remove(position);
         mJournalsAdapter.notifyItemRemoved(position);
 
         controlEmptyJournals();
@@ -229,7 +212,7 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(DialogInterface dialog, int which) {
                 if (which == 0) {
-                    showJournalDialog(true, journalsList.get(position), position);
+                    showJournalDialog(true, mJournalsList.get(position), position);
                 } else {
                     deleteJournal(position);
                 }
@@ -244,8 +227,9 @@ public class MainActivity extends AppCompatActivity {
      * button text to UPDATE
      */
     private void showJournalDialog(final boolean shouldUpdate, final JournalModel journal, final int position) {
+        final ViewGroup nullParent = null;
         LayoutInflater layoutInflaterAndroid = LayoutInflater.from(getApplicationContext());
-        View view = layoutInflaterAndroid.inflate(R.layout.journal_dialog, null);
+        View view = layoutInflaterAndroid.inflate(R.layout.dialog_journal, nullParent);
 
         AlertDialog.Builder alertDialogBuilderUserInput = new AlertDialog.Builder(MainActivity.this);
         alertDialogBuilderUserInput.setView(view);
@@ -315,7 +299,7 @@ public class MainActivity extends AppCompatActivity {
     public boolean onCreateOptionsMenu(Menu menu) {
         MenuInflater inflater = getMenuInflater();
         inflater.inflate(R.menu.logout, menu);
-        collapsedMenu = menu;
+        mCollapsedMenu = menu;
         return true;
     }
 
@@ -339,16 +323,14 @@ public class MainActivity extends AppCompatActivity {
 
     @Override
     public boolean onPrepareOptionsMenu(Menu menu) {
-        if (collapsedMenu != null
-                && (!appBarExpanded || collapsedMenu.size() != 1)) {
+        if (mCollapsedMenu != null
+                && (!mAppBarExpanded || mCollapsedMenu.size() != 1)) {
             //collapsed
-            collapsedMenu.add("Add")
+            mCollapsedMenu.add("Add")
                     .setIcon(R.drawable.ic_add_white_24dp)
                     .setShowAsAction(MenuItem.SHOW_AS_ACTION_IF_ROOM);
-        } else {
-            //expanded
         }
-        return super.onPrepareOptionsMenu(collapsedMenu);
+        return super.onPrepareOptionsMenu(mCollapsedMenu);
     }
 
     @Override
@@ -362,9 +344,9 @@ public class MainActivity extends AppCompatActivity {
                 R.drawable.header_image);
         Palette.from(bitmap).generate(new Palette.PaletteAsyncListener() {
             @Override
-            public void onGenerated(Palette palette) {
+            public void onGenerated(@NonNull Palette palette) {
                 int mutedColor = palette.getMutedColor(R.attr.colorPrimary);
-                collapsingToolbar.setContentScrimColor(mutedColor);
+                mCollapsingToolbar.setContentScrimColor(mutedColor);
             }
         });
     }

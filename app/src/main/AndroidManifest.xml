@@ -8,7 +8,8 @@
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
-        android:theme="@style/AppTheme">
+        android:theme="@style/AppTheme"
+        android:fullBackupContent="@xml/backup_descriptor">
         <activity android:name=".MainActivity"
             android:theme="@style/AppTheme.NoActionBar">
             <intent-filter>
@@ -20,7 +21,7 @@
 
         </activity>
         <activity
-            android:name=".Userauthentication.UserLoginActivity"
+            android:name=".userauthentication.UserLoginActivity"
             android:label="@string/title_activity_login"
             android:theme="@style/AppTheme.NoActionBar">
 
@@ -28,13 +29,13 @@
 
         </activity>
         <activity
-            android:name=".Userauthentication.UserSignupActivity"
+            android:name=".userauthentication.UserSignupActivity"
             android:theme="@style/AppTheme.NoActionBar">
 
 
         </activity>
         <activity
-            android:name=".Userauthentication.UserResetPasswordActivity"
+            android:name=".userauthentication.UserResetPasswordActivity"
 
             android:theme="@style/AppTheme.NoActionBar">
 

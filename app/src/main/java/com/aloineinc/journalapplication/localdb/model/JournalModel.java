@@ -7,9 +7,9 @@ public class JournalModel {
     public static final String COLUMN_JOURNAL = "journal";
     public static final String COLUMN_INTERVAL = "timestamp";
 
-    private int id;
-    private String journal;
-    private String timestamp;
+    private int mId;
+    private String mJournal;
+    private String mTimestamp;
 
 
     // Create table SQL query
@@ -24,32 +24,32 @@ public class JournalModel {
     }
 
     public JournalModel(int id, String journal, String timestamp) {
-        this.id = id;
-        this.journal = journal;
-        this.timestamp = timestamp;
+        this.mId = id;
+        this.mJournal = journal;
+        this.mTimestamp = timestamp;
     }
 
     public int getId() {
-        return id;
+        return mId;
     }
 
     public String getJournal() {
-        return journal;
+        return mJournal;
     }
 
     public void setJournal(String journal) {
-        this.journal = journal;
+        this.mJournal = journal;
     }
 
     public String getInterval() {
-        return timestamp;
+        return mTimestamp;
     }
 
     public void setId(int id) {
-        this.id = id;
+        this.mId = id;
     }
 
     public void setInterval(String timestamp) {
-        this.timestamp = timestamp;
+        this.mTimestamp = timestamp;
     }
 }

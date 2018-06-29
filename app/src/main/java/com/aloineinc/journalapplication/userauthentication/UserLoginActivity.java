@@ -1,4 +1,4 @@
-package com.aloineinc.journalapplication.Userauthentication;
+package com.aloineinc.journalapplication.userauthentication;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -8,8 +8,6 @@ import android.support.v7.app.AppCompatActivity;
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
-import android.widget.Button;
-import android.widget.EditText;
 import android.widget.ProgressBar;
 import android.widget.Toast;
 
@@ -21,7 +19,6 @@ import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
 import com.google.android.gms.auth.api.signin.GoogleSignInResult;
 import com.google.android.gms.common.ConnectionResult;
-import com.google.android.gms.common.SignInButton;
 import com.google.android.gms.common.api.GoogleApiClient;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
@@ -30,12 +27,10 @@ import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.GoogleAuthProvider;
 
-import org.w3c.dom.Text;
-
 public class UserLoginActivity extends AppCompatActivity implements View.OnClickListener {
-    private TextInputEditText inputEmail, inputPassword;
-    private ProgressBar progressBar;
-    private FirebaseAuth firebaseAuth;
+    private TextInputEditText mInputEmail, mInputPassword;
+    private ProgressBar mProgressBar;
+    private FirebaseAuth mFirebaseAuth;
     private static final int RC_SIGN_IN = 1;
     private GoogleApiClient mGoogleApiClient;
     private FirebaseAuth mAuth;
@@ -65,14 +60,14 @@ public class UserLoginActivity extends AppCompatActivity implements View.OnClick
 
 
     private void init() {
-        inputEmail = findViewById(R.id.email);
-        inputPassword = findViewById(R.id.password);
-        progressBar = (ProgressBar) findViewById(R.id.progressBar);
+        mInputEmail = findViewById(R.id.email);
+        mInputPassword = findViewById(R.id.password);
+        mProgressBar = findViewById(R.id.progressBar);
         findViewById(R.id.btn_signup).setOnClickListener(this);
         findViewById(R.id.btn_login).setOnClickListener(this);
         findViewById(R.id.btn_reset_password).setOnClickListener(this);
         findViewById(R.id.googleButton).setOnClickListener(this);
-        firebaseAuth = FirebaseAuth.getInstance();
+        mFirebaseAuth = FirebaseAuth.getInstance();
         mAuth = FirebaseAuth.getInstance();
 
     }
@@ -83,7 +78,8 @@ public class UserLoginActivity extends AppCompatActivity implements View.OnClick
                 .requestIdToken(getString(R.string.default_web_client_id))
                 .requestEmail()
                 .build();
-        mGoogleApiClient = new GoogleApiClient.Builder(getApplicationContext()).enableAutoManage(this, new GoogleApiClient.OnConnectionFailedListener() {
+        mGoogleApiClient =
+                new GoogleApiClient.Builder(getApplicationContext()).enableAutoManage(this, new GoogleApiClient.OnConnectionFailedListener() {
             @Override
             public void onConnectionFailed(@NonNull ConnectionResult connectionResult) {
                 Toast.makeText(UserLoginActivity.this, "Error occured", Toast.LENGTH_SHORT).show();
@@ -100,7 +96,7 @@ public class UserLoginActivity extends AppCompatActivity implements View.OnClick
             @Override
             public void onAuthStateChanged(@NonNull FirebaseAuth firebaseAuth) {
                 if (firebaseAuth.getCurrentUser() != null) {
-                    progressBar.setVisibility(View.GONE);
+                    mProgressBar.setVisibility(View.GONE);
                     startActivity(new Intent(UserLoginActivity.this, MainActivity.class));
                 }
             }
@@ -120,40 +116,40 @@ public class UserLoginActivity extends AppCompatActivity implements View.OnClick
                 doLoginBtn();
                 break;
             case R.id.googleButton:
-                progressBar.setVisibility(View.VISIBLE);
+                mProgressBar.setVisibility(View.VISIBLE);
                 signIn();
         }
 
     }
 
     private void doLoginBtn() {
-        String email = inputEmail.getText().toString();
-        final String password = inputPassword.getText().toString();
+        String email = mInputEmail.getText().toString();
+        final String password = mInputPassword.getText().toString();
 
         if (TextUtils.isEmpty(email)) {
-            inputEmail.setError("Email field is empty");
+            mInputEmail.setError("Email field is empty");
             Toast.makeText(getApplicationContext(), "Enter email address", Toast.LENGTH_SHORT).show();
             return;
         }
         if (!EmailValidator.isValidEmail(email)) {
-            inputEmail.setError("Enter a valid email address");
+            mInputEmail.setError("Enter a valid email address");
             return;
         }
 
         if (TextUtils.isEmpty(password)) {
-            inputPassword.setError("Password field is empty");
+            mInputPassword.setError("Password field is empty");
             Toast.makeText(getApplicationContext(), "Enter password", Toast.LENGTH_SHORT).show();
             return;
         }
-        progressBar.setVisibility(View.VISIBLE);
+        mProgressBar.setVisibility(View.VISIBLE);
 
-        firebaseAuth.signInWithEmailAndPassword(email, password).addOnCompleteListener(UserLoginActivity.this, new OnCompleteListener<AuthResult>() {
+        mFirebaseAuth.signInWithEmailAndPassword(email, password).addOnCompleteListener(UserLoginActivity.this, new OnCompleteListener<AuthResult>() {
             @Override
             public void onComplete(@NonNull Task<AuthResult> task) {
-                progressBar.setVisibility(View.GONE);
+                mProgressBar.setVisibility(View.GONE);
                 if (!task.isSuccessful()) {
                     if (password.length() < 5) {
-                        inputPassword.setError(getString(R.string.minimum_password));
+                        mInputPassword.setError(getString(R.string.minimum_password));
 
 
                     } else {
@@ -178,6 +174,7 @@ public class UserLoginActivity extends AppCompatActivity implements View.OnClick
             GoogleSignInResult result = Auth.GoogleSignInApi.getSignInResultFromIntent(data);
             if (result.isSuccess()) {
                 GoogleSignInAccount account = result.getSignInAccount();
+                assert account != null;
                 firebaseAuthWithGoogle(account);
             }
 

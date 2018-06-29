@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:paddingLeft="@dimen/activity_margin"
@@ -16,7 +17,8 @@
         android:text="@string/lbl_new_journal_title"
         android:textColor="@color/colorAccent"
         android:textSize="@dimen/lbl_new_journal_title"
-        android:textStyle="normal" />
+        android:textStyle="normal"
+        tools:targetApi="jelly_bean" />
 
     <EditText
         android:id="@+id/journal"
