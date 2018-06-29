@@ -3,6 +3,8 @@ package com.aloineinc.journalapplication.userauthentication;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
+import android.support.design.widget.CoordinatorLayout;
+import android.support.design.widget.Snackbar;
 import android.support.design.widget.TextInputEditText;
 import android.support.v7.app.AppCompatActivity;
 import android.text.TextUtils;
@@ -36,6 +38,8 @@ public class UserLoginActivity extends AppCompatActivity implements View.OnClick
     private FirebaseAuth mAuth;
     private final String TAG = "USERLOGIN_ACTIVITY";
     private FirebaseAuth.AuthStateListener mAuthStateListener;
+    private CoordinatorLayout coordinatorLayout;
+    private Snackbar snackbar;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -63,6 +67,7 @@ public class UserLoginActivity extends AppCompatActivity implements View.OnClick
         mInputEmail = findViewById(R.id.email);
         mInputPassword = findViewById(R.id.password);
         mProgressBar = findViewById(R.id.progressBar);
+        coordinatorLayout = findViewById(R.id.coordinator_layout);
         findViewById(R.id.btn_signup).setOnClickListener(this);
         findViewById(R.id.btn_login).setOnClickListener(this);
         findViewById(R.id.btn_reset_password).setOnClickListener(this);
@@ -128,7 +133,9 @@ public class UserLoginActivity extends AppCompatActivity implements View.OnClick
 
         if (TextUtils.isEmpty(email)) {
             mInputEmail.setError("Email field is empty");
-            Toast.makeText(getApplicationContext(), "Enter email address", Toast.LENGTH_SHORT).show();
+            snackbar = Snackbar
+                    .make(coordinatorLayout, "Enter email address", Snackbar.LENGTH_LONG);
+            snackbar.show();
             return;
         }
         if (!EmailValidator.isValidEmail(email)) {
@@ -138,7 +145,9 @@ public class UserLoginActivity extends AppCompatActivity implements View.OnClick
 
         if (TextUtils.isEmpty(password)) {
             mInputPassword.setError("Password field is empty");
-            Toast.makeText(getApplicationContext(), "Enter password", Toast.LENGTH_SHORT).show();
+            snackbar = Snackbar
+                    .make(coordinatorLayout, "Enter password", Snackbar.LENGTH_LONG);
+            snackbar.show();
             return;
         }
         mProgressBar.setVisibility(View.VISIBLE);

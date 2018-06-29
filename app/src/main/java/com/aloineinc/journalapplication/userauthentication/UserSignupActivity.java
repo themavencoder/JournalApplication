@@ -3,6 +3,8 @@ package com.aloineinc.journalapplication.userauthentication;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
+import android.support.design.widget.CoordinatorLayout;
+import android.support.design.widget.Snackbar;
 import android.support.design.widget.TextInputEditText;
 import android.support.v7.app.AppCompatActivity;
 import android.text.TextUtils;
@@ -12,6 +14,7 @@ import android.widget.Toast;
 
 import com.aloineinc.journalapplication.MainActivity;
 import com.aloineinc.journalapplication.R;
+import com.aloineinc.journalapplication.localdb.utilities.EmailValidator;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
@@ -21,6 +24,8 @@ public class UserSignupActivity extends AppCompatActivity implements View.OnClic
     private TextInputEditText mInputEmail, mInputPassword;
     private ProgressBar mProgressBar;
     private FirebaseAuth mFirebaseAuth;
+    private Snackbar snackbar;
+    private CoordinatorLayout coordinatorLayout;
 
 
     @Override
@@ -37,6 +42,7 @@ public class UserSignupActivity extends AppCompatActivity implements View.OnClic
         mInputEmail = findViewById(R.id.email);
         mInputPassword = findViewById(R.id.password);
         mProgressBar = findViewById(R.id.progressBar);
+        coordinatorLayout = findViewById(R.id.coordinator_layout);
         findViewById(R.id.sign_in_button).setOnClickListener(this);
         findViewById(R.id.sign_up_button).setOnClickListener(this);
         findViewById(R.id.btn_reset_password).setOnClickListener(this);
@@ -67,12 +73,22 @@ public class UserSignupActivity extends AppCompatActivity implements View.OnClic
         String password = mInputPassword.getText().toString().trim();
 
         if (TextUtils.isEmpty(email)) {
-            Toast.makeText(getApplicationContext(), "Enter email address!", Toast.LENGTH_SHORT).show();
+            mInputEmail.setError("Email field is empty");
+            snackbar = Snackbar
+                    .make(coordinatorLayout, "Enter email address", Snackbar.LENGTH_LONG);
+            snackbar.show(); Toast.makeText(getApplicationContext(), "Enter email address!", Toast.LENGTH_SHORT).show();
+            return;
+        }
+        if (!EmailValidator.isValidEmail(email)) {
+            mInputEmail.setError("Enter a valid email address");
             return;
         }
 
         if (TextUtils.isEmpty(password)) {
-            Toast.makeText(getApplicationContext(), "Enter password!", Toast.LENGTH_SHORT).show();
+            mInputPassword.setError("Password field is empty");
+            snackbar = Snackbar
+                    .make(coordinatorLayout, "Enter password", Snackbar.LENGTH_LONG);
+            snackbar.show();
             return;
         }
 
