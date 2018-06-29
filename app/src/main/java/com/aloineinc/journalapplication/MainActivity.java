@@ -26,7 +26,6 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.EditText;
-import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -48,7 +47,6 @@ public class MainActivity extends AppCompatActivity {
 
     private JournalsAdapter mJournalsAdapter;
     private final List<JournalModel> mJournalsList = new ArrayList<>();
-    private CoordinatorLayout mCoordinatorLayout;
     private RecyclerView mRecyclerView;
     private TextView mJournalsView;
 
@@ -137,7 +135,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void init() {
-        mCoordinatorLayout = findViewById(R.id.coordinator_layout);
+        CoordinatorLayout mCoordinatorLayout = findViewById(R.id.coordinator_layout);
         mRecyclerView = findViewById(R.id.recycler_view);
         mJournalsView = findViewById(R.id.empty_journals_view);
 

@@ -1,5 +1,6 @@
 package com.aloineinc.journalapplication.localdb.utilities;
 
+@SuppressWarnings("BooleanMethodIsAlwaysInverted")
 public abstract class EmailValidator {
     public static boolean isValidEmail(String email)
     {

@@ -12,7 +12,6 @@ import android.widget.TextView;
 import com.aloineinc.journalapplication.localdb.model.JournalModel;
 
 import java.text.DateFormat;
-import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
@@ -21,8 +20,8 @@ import java.util.Locale;
 
 public class JournalsAdapter extends RecyclerView.Adapter<JournalsAdapter.JournalsViewHolder> {
 
-    @SuppressWarnings("FieldCanBeLocal")
-    private Context mContext;
+    @SuppressWarnings({"FieldCanBeLocal", "unused"})
+    private final Context mContext;
     private final List<JournalModel> mJournalsList;
 
     public class JournalsViewHolder extends RecyclerView.ViewHolder {
@@ -44,6 +43,7 @@ public class JournalsAdapter extends RecyclerView.Adapter<JournalsAdapter.Journa
         this.mJournalsList = journalsList;
     }
 
+    @NonNull
     @Override
     public JournalsViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View itemView = LayoutInflater.from(parent.getContext())
@@ -75,12 +75,11 @@ public class JournalsAdapter extends RecyclerView.Adapter<JournalsAdapter.Journa
      * Input: 2018-02-21 00:15:42
      * Output: Feb 21
      */
-    private String formatDate(String dateStr) {
+    private String formatDate(@SuppressWarnings("unused") String dateStr) {
 
             DateFormat fmt = SimpleDateFormat.getDateInstance(DateFormat.DEFAULT, Locale.ENGLISH);
             Date date = Calendar.getInstance().getTime();
-            String reportDate = fmt.format(date);
-            return reportDate;
+        return fmt.format(date);
 
 
 
