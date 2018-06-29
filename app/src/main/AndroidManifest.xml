@@ -22,6 +22,7 @@
         </activity>
         <activity
             android:name=".userauthentication.UserLoginActivity"
+            android:screenOrientation="portrait"
             android:label="@string/title_activity_login"
             android:theme="@style/AppTheme.NoActionBar">
 
@@ -30,12 +31,14 @@
         </activity>
         <activity
             android:name=".userauthentication.UserSignupActivity"
+            android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar">
 
 
         </activity>
         <activity
             android:name=".userauthentication.UserResetPasswordActivity"
+            android:screenOrientation="portrait"
 
             android:theme="@style/AppTheme.NoActionBar">
 
