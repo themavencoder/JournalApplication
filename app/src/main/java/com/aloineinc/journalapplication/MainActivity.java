@@ -57,7 +57,7 @@ import java.util.List;
 
 public class MainActivity extends AppCompatActivity {
 
-    private FirebaseAuth firebaseAuth;
+    private FirebaseAuth mFirebaseAuth;
     private FirebaseAuth.AuthStateListener mAuthStateListener;
 
     private JournalsAdapter mJournalsAdapter;
@@ -74,15 +74,13 @@ public class MainActivity extends AppCompatActivity {
     private CollapsingToolbarLayout mCollapsingToolbar;
 
 
-
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-        mCollapsingToolbar =findViewById(R.id.collapsing_toolbar);
+        mCollapsingToolbar = findViewById(R.id.collapsing_toolbar);
         mCollapsingToolbar.setTitle("Journals");
         findViewById(R.id.header);
         init();
@@ -116,7 +114,7 @@ public class MainActivity extends AppCompatActivity {
         RecyclerView.LayoutManager mLayoutManager = new LinearLayoutManager(getApplicationContext());
         mRecyclerView.setLayoutManager(mLayoutManager);
         mRecyclerView.setItemAnimator(new DefaultItemAnimator());
-        mRecyclerView.addItemDecoration(new DividerItemDecoration(this,LinearLayoutManager.VERTICAL));
+        mRecyclerView.addItemDecoration(new DividerItemDecoration(this, LinearLayoutManager.VERTICAL));
         mRecyclerView.setAdapter(mJournalsAdapter);
 
         controlEmptyJournals();
@@ -134,12 +132,12 @@ public class MainActivity extends AppCompatActivity {
         }));
 
 
-        firebaseAuth = FirebaseAuth.getInstance();
+        mFirebaseAuth = FirebaseAuth.getInstance();
         mAuthStateListener = new FirebaseAuth.AuthStateListener() {
             @Override
             public void onAuthStateChanged(@NonNull FirebaseAuth firebaseAuth) {
-                if(firebaseAuth.getCurrentUser() == null) {
-                        startActivity(new Intent(MainActivity.this, UserLoginActivity.class));
+                if (firebaseAuth.getCurrentUser() == null) {
+                    startActivity(new Intent(MainActivity.this, UserLoginActivity.class));
                 }
 
             }
@@ -158,6 +156,7 @@ public class MainActivity extends AppCompatActivity {
 
 
     }
+
     private void createJournal(String journal) {
         mMessagesDatabaseReference.push().setValue(journal);
         // inserting journal in db and getting
@@ -177,6 +176,7 @@ public class MainActivity extends AppCompatActivity {
             controlEmptyJournals();
         }
     }
+
     /**
      * Updating journal in db and updating
      * item in the list by its position
@@ -233,6 +233,7 @@ public class MainActivity extends AppCompatActivity {
         });
         builder.show();
     }
+
     /**
      * Shows alert dialog with EditText options to enter / edit
      * a journal.
@@ -306,8 +307,6 @@ public class MainActivity extends AppCompatActivity {
     }
 
 
-
-
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         MenuInflater inflater = getMenuInflater();
@@ -319,10 +318,10 @@ public class MainActivity extends AppCompatActivity {
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        switch(item.getItemId()) {
+        switch (item.getItemId()) {
 
             case R.id.logout:
-                firebaseAuth.signOut();
+                mFirebaseAuth.signOut();
                 break;
             default:
                 showJournalDialog(false, null, -1);
@@ -330,7 +329,7 @@ public class MainActivity extends AppCompatActivity {
 
         }
 
-  return super.onOptionsItemSelected(item);
+        return super.onOptionsItemSelected(item);
 
     }
 
@@ -349,7 +348,7 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onStart() {
         super.onStart();
-        firebaseAuth.addAuthStateListener(mAuthStateListener);
+        mFirebaseAuth.addAuthStateListener(mAuthStateListener);
     }
 
     private void gradientImage() {
@@ -373,7 +372,7 @@ public class MainActivity extends AppCompatActivity {
                 .setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
 
                     public void onClick(DialogInterface arg0, int arg1) {
-                      finish();
+                        MainActivity.super.onBackPressed();
                     }
                 }).create().show();
     }
