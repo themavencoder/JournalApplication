@@ -62,7 +62,8 @@
             android:textColor="@color/black"
             android:textStyle="bold"
             android:drawableStart="@drawable/google_plus"
-            android:paddingStart="19dp">
+            android:paddingStart="19dp"
+            tools:ignore="RtlSymmetry">
 
 
         </Button>

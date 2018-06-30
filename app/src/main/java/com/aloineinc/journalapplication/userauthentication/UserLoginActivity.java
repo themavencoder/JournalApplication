@@ -17,7 +17,6 @@
 package com.aloineinc.journalapplication.userauthentication;
 
 import android.content.Intent;
-import android.media.VolumeShaper;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.CoordinatorLayout;
@@ -56,7 +55,6 @@ public class UserLoginActivity extends AppCompatActivity implements View.OnClick
     private final String TAG = "USERLOGIN_ACTIVITY";
     private FirebaseAuth.AuthStateListener mAuthStateListener;
     private CoordinatorLayout coordinatorLayout;
-    private Snackbar snackbar;
 
 
     @Override
@@ -77,7 +75,7 @@ public class UserLoginActivity extends AppCompatActivity implements View.OnClick
 
     private void signIn() {
         Intent signInIntent = Auth.GoogleSignInApi.getSignInIntent(mGoogleApiClient);
-        mProgressBar.setVisibility(View.GONE);
+        mProgressBar.setVisibility(View.VISIBLE);
         startActivityForResult(signInIntent, RC_SIGN_IN);
     }
 
@@ -121,7 +119,7 @@ public class UserLoginActivity extends AppCompatActivity implements View.OnClick
             @Override
             public void onAuthStateChanged(@NonNull FirebaseAuth firebaseAuth) {
                 if (firebaseAuth.getCurrentUser() != null) {
-                    mProgressBar.setVisibility(View.GONE);
+                    mProgressBar.setVisibility(View.VISIBLE);
                     startActivity(new Intent(UserLoginActivity.this, MainActivity.class));
                 }
             }
@@ -141,7 +139,7 @@ public class UserLoginActivity extends AppCompatActivity implements View.OnClick
                 doLoginBtn();
                 break;
             case R.id.googleButton:
-                mProgressBar.setVisibility(View.VISIBLE);
+                mProgressBar.setVisibility(View.GONE);
                 signIn();
         }
 
@@ -151,25 +149,7 @@ public class UserLoginActivity extends AppCompatActivity implements View.OnClick
         String email = mInputEmail.getText().toString();
         final String password = mInputPassword.getText().toString();
 
-        if (TextUtils.isEmpty(email)) {
-            mInputEmail.setError("Email field is empty");
-            snackbar = Snackbar
-                    .make(coordinatorLayout, "Enter email address", Snackbar.LENGTH_LONG);
-            snackbar.show();
-            return;
-        }
-        if (!EmailValidator.isValidEmail(email)) {
-            mInputEmail.setError("Enter a valid email address");
-            return;
-        }
-
-        if (TextUtils.isEmpty(password)) {
-            mInputPassword.setError("Password field is empty");
-            snackbar = Snackbar
-                    .make(coordinatorLayout, "Enter password", Snackbar.LENGTH_LONG);
-            snackbar.show();
-            return;
-        }
+        if (checkLoginDetails(email, password)) return;
 
 
         mProgressBar.setVisibility(View.VISIBLE);
@@ -183,6 +163,7 @@ public class UserLoginActivity extends AppCompatActivity implements View.OnClick
                         mInputPassword.setError(getString(R.string.minimum_password));
 
 
+
                     } else {
                         Toast.makeText(UserLoginActivity.this, getString(R.string.auth_failed), Toast.LENGTH_LONG).show();
 
@@ -194,6 +175,30 @@ public class UserLoginActivity extends AppCompatActivity implements View.OnClick
             }
         });
 
+    }
+
+    private boolean checkLoginDetails(String email, String password) {
+        Snackbar snackbar;
+        if (TextUtils.isEmpty(email)) {
+            mInputEmail.setError("Email field is empty");
+            snackbar = Snackbar
+                    .make(coordinatorLayout, "Enter email address", Snackbar.LENGTH_LONG);
+            snackbar.show();
+            return true;
+        }
+        if (!EmailValidator.isValidEmail(email)) {
+            mInputEmail.setError("Enter a valid email address");
+            return true;
+        }
+
+        if (TextUtils.isEmpty(password)) {
+            mInputPassword.setError("Password field is empty");
+            snackbar = Snackbar
+                    .make(coordinatorLayout, "Enter password", Snackbar.LENGTH_LONG);
+            snackbar.show();
+            return true;
+        }
+        return false;
     }
 
     @Override

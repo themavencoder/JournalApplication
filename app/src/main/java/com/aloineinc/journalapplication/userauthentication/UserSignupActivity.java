@@ -39,7 +39,6 @@ public class UserSignupActivity extends AppCompatActivity implements View.OnClic
     private TextInputEditText mInputEmail, mInputPassword;
     private ProgressBar mProgressBar;
     private FirebaseAuth mFirebaseAuth;
-    private Snackbar snackbar;
     private CoordinatorLayout coordinatorLayout;
 
 
@@ -87,33 +86,16 @@ public class UserSignupActivity extends AppCompatActivity implements View.OnClic
         String email = mInputEmail.getText().toString().trim();
         String password = mInputPassword.getText().toString().trim();
 
-        if (TextUtils.isEmpty(email)) {
-            mInputEmail.setError("Email field is empty");
-            snackbar = Snackbar
-                    .make(coordinatorLayout, "Enter email address", Snackbar.LENGTH_LONG);
-            snackbar.show(); Toast.makeText(getApplicationContext(), "Enter email address!", Toast.LENGTH_SHORT).show();
-            return;
-        }
-        if (!EmailValidator.isValidEmail(email)) {
-            mInputEmail.setError("Enter a valid email address");
-            return;
-        }
-
-        if (TextUtils.isEmpty(password)) {
-            mInputPassword.setError("Password field is empty");
-            snackbar = Snackbar
-                    .make(coordinatorLayout, "Enter password", Snackbar.LENGTH_LONG);
-            snackbar.show();
-            return;
-        }
-
-        if (password.length() < 6) {
-            Toast.makeText(getApplicationContext(), "Password too short, enter minimum 6 characters!", Toast.LENGTH_SHORT).show();
-            return;
-        }
+        Snackbar snackbar;
+        if (checkEnteredValue(email, password)) return;
 
         mProgressBar.setVisibility(View.VISIBLE);
 
+        firebaseAuth(email, password);
+
+    }
+
+    private void firebaseAuth(String email, String password) {
         mFirebaseAuth.createUserWithEmailAndPassword(email, password)
                 .addOnCompleteListener(UserSignupActivity.this, new OnCompleteListener<AuthResult>() {
                     @Override
@@ -132,7 +114,35 @@ public class UserSignupActivity extends AppCompatActivity implements View.OnClic
                         }
                     }
                 });
+    }
 
+    private boolean checkEnteredValue(String email, String password) {
+        Snackbar snackbar;
+        if (TextUtils.isEmpty(email)) {
+            mInputEmail.setError("Email field is empty");
+            snackbar = Snackbar
+                    .make(coordinatorLayout, "Enter email address", Snackbar.LENGTH_LONG);
+            snackbar.show(); Toast.makeText(getApplicationContext(), "Enter email address!", Toast.LENGTH_SHORT).show();
+            return true;
+        }
+        if (!EmailValidator.isValidEmail(email)) {
+            mInputEmail.setError("Enter a valid email address");
+            return true;
+        }
+
+        if (TextUtils.isEmpty(password)) {
+            mInputPassword.setError("Password field is empty");
+            snackbar = Snackbar
+                    .make(coordinatorLayout, "Enter password", Snackbar.LENGTH_LONG);
+            snackbar.show();
+            return true;
+        }
+
+        if (password.length() < 6) {
+            Toast.makeText(getApplicationContext(), "Password too short, enter minimum 6 characters!", Toast.LENGTH_SHORT).show();
+            return true;
+        }
+        return false;
     }
 
     @Override

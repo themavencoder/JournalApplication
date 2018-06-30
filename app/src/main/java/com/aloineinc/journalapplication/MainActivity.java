@@ -150,6 +150,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void init() {
+        //noinspection unused
         CoordinatorLayout mCoordinatorLayout = findViewById(R.id.coordinator_layout);
         mRecyclerView = findViewById(R.id.recycler_view);
         mJournalsView = findViewById(R.id.empty_journals_view);

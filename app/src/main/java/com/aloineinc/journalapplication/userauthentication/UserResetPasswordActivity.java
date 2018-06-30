@@ -71,16 +71,12 @@ public class UserResetPasswordActivity extends AppCompatActivity implements View
 
     private void doRestBtn() {
         String email = mInputEmail.getText().toString().trim();
-        if (TextUtils.isEmpty(email)) {
-            mInputEmail.setError("Enter registered mail");
-            Toast.makeText(getApplication(), "Enter your registered email id", Toast.LENGTH_SHORT).show();
-            return;
-        }
-        if (!EmailValidator.isValidEmail(email)) {
-            mInputEmail.setError("Enter a valid email address");
-            return;
-        }
+        if (checkEnteredValue(email)) return;
         mProgressBar.setVisibility(View.VISIBLE);
+        firebaseAuth(email);
+    }
+
+    private void firebaseAuth(String email) {
         mFirebaseAuth.sendPasswordResetEmail(email).addOnCompleteListener(new OnCompleteListener<Void>() {
             @Override
             public void onComplete(@NonNull Task<Void> task) {
@@ -94,5 +90,18 @@ public class UserResetPasswordActivity extends AppCompatActivity implements View
 
             }
         });
+    }
+
+    private boolean checkEnteredValue(String email) {
+        if (TextUtils.isEmpty(email)) {
+            mInputEmail.setError("Enter registered mail");
+            Toast.makeText(getApplication(), "Enter your registered email id", Toast.LENGTH_SHORT).show();
+            return true;
+        }
+        if (!EmailValidator.isValidEmail(email)) {
+            mInputEmail.setError("Enter a valid email address");
+            return true;
+        }
+        return false;
     }
 }
