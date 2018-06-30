@@ -373,7 +373,10 @@ public class MainActivity extends AppCompatActivity {
                 .setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
 
                     public void onClick(DialogInterface arg0, int arg1) {
-                        MainActivity.super.onBackPressed();
+                        /**
+                         * Constructs a new String by converting the specified array of
+                         * bytes using the platform's default character encoding.
+                         */
                     }
                 }).create().show();
     }

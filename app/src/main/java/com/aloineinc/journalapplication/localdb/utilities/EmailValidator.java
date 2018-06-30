@@ -15,8 +15,17 @@
  */
 package com.aloineinc.journalapplication.localdb.utilities;
 
+/**
+ * Validates the email address and provides
+ * required output
+ */
 @SuppressWarnings("BooleanMethodIsAlwaysInverted")
 public abstract class EmailValidator {
+
+    /**
+     * Validates anc checks email address if it
+     * follows the email convention and returns true
+     */
     public static boolean isValidEmail(String email)
     {
         String emailRegex =

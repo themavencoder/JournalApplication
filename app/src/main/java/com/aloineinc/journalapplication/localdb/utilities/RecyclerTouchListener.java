@@ -23,6 +23,11 @@ import android.view.MotionEvent;
 import android.view.View;
 
 @SuppressWarnings("ALL")
+
+/**
+ *Determines what happens when a view is clicked
+ * in the RecyclerView
+ */
 public class RecyclerTouchListener implements RecyclerView.OnItemTouchListener {
 
     private final ClickListener mClicklistener;
@@ -68,6 +73,10 @@ public class RecyclerTouchListener implements RecyclerView.OnItemTouchListener {
     }
 
     @SuppressWarnings({"EmptyMethod", "unused"})
+    /**
+     *
+     *
+     */
     public interface ClickListener {
         @SuppressWarnings("unused")
         void onClick(View view, int position);
