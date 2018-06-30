@@ -56,6 +56,7 @@ public class UserResetPasswordActivity extends AppCompatActivity implements View
     private void doRestBtn() {
         String email = mInputEmail.getText().toString().trim();
         if (TextUtils.isEmpty(email)) {
+            mInputEmail.setError("Enter registered mail");
             Toast.makeText(getApplication(), "Enter your registered email id", Toast.LENGTH_SHORT).show();
             return;
         }

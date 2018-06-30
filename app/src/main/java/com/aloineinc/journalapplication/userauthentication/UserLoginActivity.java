@@ -1,6 +1,7 @@
 package com.aloineinc.journalapplication.userauthentication;
 
 import android.content.Intent;
+import android.media.VolumeShaper;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.CoordinatorLayout;
@@ -41,6 +42,7 @@ public class UserLoginActivity extends AppCompatActivity implements View.OnClick
     private CoordinatorLayout coordinatorLayout;
     private Snackbar snackbar;
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -59,6 +61,7 @@ public class UserLoginActivity extends AppCompatActivity implements View.OnClick
 
     private void signIn() {
         Intent signInIntent = Auth.GoogleSignInApi.getSignInIntent(mGoogleApiClient);
+        mProgressBar.setVisibility(View.GONE);
         startActivityForResult(signInIntent, RC_SIGN_IN);
     }
 
@@ -68,6 +71,7 @@ public class UserLoginActivity extends AppCompatActivity implements View.OnClick
         mInputPassword = findViewById(R.id.password);
         mProgressBar = findViewById(R.id.progressBar);
         coordinatorLayout = findViewById(R.id.coordinator_layout);
+
         findViewById(R.id.btn_signup).setOnClickListener(this);
         findViewById(R.id.btn_login).setOnClickListener(this);
         findViewById(R.id.btn_reset_password).setOnClickListener(this);
@@ -150,6 +154,8 @@ public class UserLoginActivity extends AppCompatActivity implements View.OnClick
             snackbar.show();
             return;
         }
+
+
         mProgressBar.setVisibility(View.VISIBLE);
 
         mFirebaseAuth.signInWithEmailAndPassword(email, password).addOnCompleteListener(UserLoginActivity.this, new OnCompleteListener<AuthResult>() {
@@ -198,11 +204,14 @@ public class UserLoginActivity extends AppCompatActivity implements View.OnClick
                     @Override
                     public void onComplete(@NonNull Task<AuthResult> task) {
                         if (task.isSuccessful()) {
+                            mProgressBar.setVisibility(View.GONE);
                             // Sign in success, update UI with the signed-in user's information
                             Log.d(TAG, "signInWithCredential:success");
 
+
                         } else {
                             // If sign in fails, display a message to the user.
+                            mProgressBar.setVisibility(View.GONE);
                             Log.w(TAG, "signInWithCredential:failure", task.getException());
                             Toast.makeText(UserLoginActivity.this, "Authentication failed", Toast.LENGTH_SHORT).show();
                         }
