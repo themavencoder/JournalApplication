@@ -15,6 +15,8 @@
  */
 package com.aloineinc.journalapplication.localdb.model;
 
+
+
 public class JournalModel {
     public static final String TABLE_NAME = "journals";
 
