@@ -6,7 +6,8 @@
 
 This journal application is utility application for Android. It allows clients to create a diary entry, review diary entries and also add or modify diary entries. It uses firebase for authentication. Clients are able to log in using a valid email address and also meeting password requirements for the application. All entries are also stored in a remote repository using Firebase and local repository using SQLite. Both the MVC and MVP design guidelines are used in the journal application. 
 
-![deviceart](https://user-images.githubusercontent.com/15139694/42136010-dfd6d80e-7d4b-11e8-9fdf-4b5b2a659fa8.png)
+![deviceart](https://user-images.githubusercontent.com/15139694/42136112-b10a3690-7d4d-11e8-9e28-491084ccff9c.png)
+
 
 
 
