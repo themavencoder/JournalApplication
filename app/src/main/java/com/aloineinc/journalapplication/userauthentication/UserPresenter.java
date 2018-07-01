@@ -1,9 +1,9 @@
 package com.aloineinc.journalapplication.userauthentication;
 
-public class UserLoginPresenter implements UserLoginContract.Presenter {
+public class UserPresenter implements UserContract.Presenter {
     private final Person person;
 
-    public  UserLoginPresenter() {
+    public UserPresenter() {
         this.person = new Person();
     }
 
@@ -13,6 +13,11 @@ public class UserLoginPresenter implements UserLoginContract.Presenter {
         person.setPassword(password);
 
 
+    }
+
+    @Override
+    public void saveResetPassword(String email) {
+        person.setEmail(email);
     }
 
     @Override

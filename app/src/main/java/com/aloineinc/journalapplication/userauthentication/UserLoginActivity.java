@@ -45,7 +45,7 @@ import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.GoogleAuthProvider;
 
-public class UserLoginActivity extends AppCompatActivity implements UserLoginContract.View, View.OnClickListener {
+public class UserLoginActivity extends AppCompatActivity implements  View.OnClickListener {
     private TextInputEditText mInputEmail, mInputPassword;
     private ProgressBar mProgressBar;
     private FirebaseAuth mFirebaseAuth;
@@ -55,14 +55,14 @@ public class UserLoginActivity extends AppCompatActivity implements UserLoginCon
     private final String TAG = "USERLOGIN_ACTIVITY";
     private FirebaseAuth.AuthStateListener mAuthStateListener;
     private CoordinatorLayout coordinatorLayout;
-    private UserLoginContract.Presenter presenter;
+    private UserContract.Presenter presenter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_user_login);
         init();
-        presenter = new UserLoginPresenter();
+        presenter = new UserPresenter();
         authListener();
         googleSignIn();
 
@@ -132,16 +132,20 @@ public class UserLoginActivity extends AppCompatActivity implements UserLoginCon
         switch (view.getId()) {
             case R.id.btn_signup:
                 startActivity(new Intent(UserLoginActivity.this, UserSignupActivity.class));
+
                 break;
             case R.id.btn_reset_password:
                 startActivity(new Intent(UserLoginActivity.this, UserResetPasswordActivity.class));
+
                 break;
             case R.id.btn_login:
                 doLoginBtn();
+
                 break;
             case R.id.googleButton:
                 mProgressBar.setVisibility(View.GONE);
                 signIn();
+
         }
 
     }

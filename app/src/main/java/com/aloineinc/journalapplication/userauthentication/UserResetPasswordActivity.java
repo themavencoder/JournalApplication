@@ -35,6 +35,7 @@ public class UserResetPasswordActivity extends AppCompatActivity implements View
     private TextInputEditText mInputEmail;
     private FirebaseAuth mFirebaseAuth;
     private ProgressBar mProgressBar;
+    private UserContract.Presenter presenter;
 
 
     @Override
@@ -42,6 +43,7 @@ public class UserResetPasswordActivity extends AppCompatActivity implements View
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_user_reset_password);
         init();
+        presenter = new UserPresenter();
 
     }
 
@@ -61,7 +63,7 @@ public class UserResetPasswordActivity extends AppCompatActivity implements View
                 finish();
                 break;
             case R.id.btn_reset_password:
-               doRestBtn();
+                doRestBtn();
                 break;
 
 
@@ -70,10 +72,11 @@ public class UserResetPasswordActivity extends AppCompatActivity implements View
     }
 
     private void doRestBtn() {
-        String email = mInputEmail.getText().toString().trim();
-        if (checkEnteredValue(email)) return;
+        presenter.saveResetPassword(mInputEmail.getText().toString());
+
+        if (checkEnteredValue(presenter.showEmail())) return;
         mProgressBar.setVisibility(View.VISIBLE);
-        firebaseAuth(email);
+        firebaseAuth(presenter.showEmail());
     }
 
     private void firebaseAuth(String email) {

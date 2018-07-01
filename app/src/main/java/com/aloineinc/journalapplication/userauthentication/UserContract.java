@@ -1,6 +1,6 @@
 package com.aloineinc.journalapplication.userauthentication;
 
-interface UserLoginContract {
+interface UserContract {
 
     interface View{
 
@@ -10,6 +10,7 @@ interface UserLoginContract {
 
 
     void saveLoginDetails(String email, String password);
+    void saveResetPassword(String email);
     String showPassword();
     String showEmail();
 
