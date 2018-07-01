@@ -374,7 +374,7 @@ public class MainActivity extends AppCompatActivity {
                 .setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
 
                     public void onClick(DialogInterface arg0, int arg1) {
-                      finish();
+                      firebaseAuth.signOut();
                     }
                 }).create().show();
     }

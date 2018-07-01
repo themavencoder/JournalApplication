@@ -40,6 +40,7 @@ public class UserSignupActivity extends AppCompatActivity implements View.OnClic
     private ProgressBar mProgressBar;
     private FirebaseAuth mFirebaseAuth;
     private CoordinatorLayout coordinatorLayout;
+    private UserContract.Presenter presenter;
 
 
     @Override
@@ -47,6 +48,7 @@ public class UserSignupActivity extends AppCompatActivity implements View.OnClic
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_user_signup);
         init();
+        presenter = new UserPresenter();
     }
 
 
@@ -83,15 +85,12 @@ public class UserSignupActivity extends AppCompatActivity implements View.OnClic
     }
 
     private void doSignUpbtn() {
-        String email = mInputEmail.getText().toString().trim();
-        String password = mInputPassword.getText().toString().trim();
-
-        Snackbar snackbar;
-        if (checkEnteredValue(email, password)) return;
+        presenter.saveLoginDetails(mInputEmail.getText().toString(),mInputPassword.getText().toString());
+        if (checkEnteredValue(presenter.showEmail(), presenter.showPassword())) return;
 
         mProgressBar.setVisibility(View.VISIBLE);
 
-        firebaseAuth(email, password);
+        firebaseAuth(presenter.showEmail(), presenter.showPassword());
 
     }
 
@@ -100,7 +99,7 @@ public class UserSignupActivity extends AppCompatActivity implements View.OnClic
                 .addOnCompleteListener(UserSignupActivity.this, new OnCompleteListener<AuthResult>() {
                     @Override
                     public void onComplete(@NonNull Task<AuthResult> task) {
-                        Toast.makeText(UserSignupActivity.this, "createUserWithEmail:onComplete:" + task.isSuccessful(), Toast.LENGTH_SHORT).show();
+                        Toast.makeText(UserSignupActivity.this, "Successful:" + task.isSuccessful(), Toast.LENGTH_SHORT).show();
                         mProgressBar.setVisibility(View.GONE);
                         // If sign in fails, display a message to the user. If sign in succeeds
                         // the auth state listener will be notified and logic to handle the
