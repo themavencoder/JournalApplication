@@ -4,7 +4,7 @@
 
 #	Journal Application #
 
-This journal application is utility application for Android. It allows clients to create a diary entry, review diary entries and also add or modify diary entries. It uses firebase for authentication. Clients are able to log in using a valid email address and also meeting password requirements for the application. All entries are also stored in a remote repository using Firebase and local repository using SQLite. **Both the MVC and MVP design guidelines are used in this journal application.** ##[Download APK](https://drive.google.com/drive/folders/13Mr18a-pmEgzYz6y4JNl_TTMmkC_aWMX?usp=sharing)##
+This journal application is utility application for Android. It allows clients to create a diary entry, review diary entries and also add or modify diary entries. It uses firebase for authentication. Clients are able to log in using a valid email address and also meeting password requirements for the application. All entries are also stored in a remote repository using Firebase and local repository using SQLite. **Both the MVC and MVP design guidelines are used in this journal application.** [Download APK](https://drive.google.com/drive/folders/13Mr18a-pmEgzYz6y4JNl_TTMmkC_aWMX?usp=sharing)
 
 ![deviceart](https://user-images.githubusercontent.com/15139694/42136112-b10a3690-7d4d-11e8-9e28-491084ccff9c.png)
 ![ui screen_framed](https://user-images.githubusercontent.com/15139694/42137137-292d1b54-7d5f-11e8-9257-bae54b2cb60a.png) 
@@ -82,8 +82,7 @@ You do not need any device to run this test. To run this test, open a terminal a
 
 ###	Authors
 
-
-	**Tobiloba Adejumo** - Author
+**Tobiloba Adejumo** - Author
 	See also the list of contributors who participated in this project.
 
 ### License
