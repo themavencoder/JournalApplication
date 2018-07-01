@@ -82,7 +82,7 @@ You do not need any device to run this test. To run this test, open a terminal a
 
 ###	Authors
 
-**Tobiloba Adejumo** - Author
+**Tobiloba Adejumo** - Author.
 	See also the list of contributors who participated in this project.
 
 ### License
