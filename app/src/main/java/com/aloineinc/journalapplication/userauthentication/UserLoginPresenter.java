@@ -1,25 +1,10 @@
 package com.aloineinc.journalapplication.userauthentication;
 
 public class UserLoginPresenter implements UserLoginContract.Presenter {
-    private Person person;
-    private UserLoginContract.View view;
+    private final Person person;
 
-    public  UserLoginPresenter(UserLoginContract.View view) {
+    public  UserLoginPresenter() {
         this.person = new Person();
-    }
-
-    @Override
-    public void loadMessage() {
-            if (person.getEmail() == null && person.getPassword() == null) {
-                view.showError("No person name was found");
-                return;
-            }
-        String message = "Hi " + person.getEmail();
-            view.showMessage(message);
-    }
-    @Override
-    public void changeActivity() {
-
     }
 
     @Override
@@ -28,6 +13,16 @@ public class UserLoginPresenter implements UserLoginContract.Presenter {
         person.setPassword(password);
 
 
+    }
+
+    @Override
+    public String showPassword() {
+        return person.getPassword();
+    }
+
+    @Override
+    public String showEmail() {
+        return person.getEmail();
     }
 
 

@@ -1,19 +1,18 @@
 package com.aloineinc.journalapplication.userauthentication;
 
-public interface UserLoginContract {
+interface UserLoginContract {
 
     interface View{
-        void showError(String error);
-
-        void showMessage(String message);
 
     }
 
     interface Presenter {
-    void changeActivity();
+
 
     void saveLoginDetails(String email, String password);
+    String showPassword();
+    String showEmail();
 
-    void loadMessage();
+
     }
 }

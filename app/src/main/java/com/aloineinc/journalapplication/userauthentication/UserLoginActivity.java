@@ -55,13 +55,14 @@ public class UserLoginActivity extends AppCompatActivity implements UserLoginCon
     private final String TAG = "USERLOGIN_ACTIVITY";
     private FirebaseAuth.AuthStateListener mAuthStateListener;
     private CoordinatorLayout coordinatorLayout;
-
+    private UserLoginContract.Presenter presenter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_user_login);
         init();
+        presenter = new UserLoginPresenter();
         authListener();
         googleSignIn();
 
@@ -146,20 +147,18 @@ public class UserLoginActivity extends AppCompatActivity implements UserLoginCon
     }
 
     private void doLoginBtn() {
-        String email = mInputEmail.getText().toString();
-        final String password = mInputPassword.getText().toString();
-
-        if (checkLoginDetails(email, password)) return;
+        presenter.saveLoginDetails(mInputEmail.getText().toString(),mInputPassword.getText().toString());
+        if (checkLoginDetails(presenter.showEmail(), presenter.showPassword())) return;
 
 
         mProgressBar.setVisibility(View.VISIBLE);
 
-        mFirebaseAuth.signInWithEmailAndPassword(email, password).addOnCompleteListener(UserLoginActivity.this, new OnCompleteListener<AuthResult>() {
+        mFirebaseAuth.signInWithEmailAndPassword(presenter.showEmail(), presenter.showPassword()).addOnCompleteListener(UserLoginActivity.this, new OnCompleteListener<AuthResult>() {
             @Override
             public void onComplete(@NonNull Task<AuthResult> task) {
                 mProgressBar.setVisibility(View.GONE);
                 if (!task.isSuccessful()) {
-                    if (password.length() < 5) {
+                    if (presenter.showPassword().length() < 5) {
                         mInputPassword.setError(getString(R.string.minimum_password));
 
 
@@ -243,13 +242,4 @@ public class UserLoginActivity extends AppCompatActivity implements UserLoginCon
     }
 
 
-    @Override
-    public void showError(String error) {
-
-    }
-
-    @Override
-    public void showMessage(String message) {
-
-    }
 }
