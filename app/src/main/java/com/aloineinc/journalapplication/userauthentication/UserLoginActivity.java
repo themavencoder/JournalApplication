@@ -45,7 +45,7 @@ import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.GoogleAuthProvider;
 
-public class UserLoginActivity extends AppCompatActivity implements View.OnClickListener {
+public class UserLoginActivity extends AppCompatActivity implements UserLoginContract.View, View.OnClickListener {
     private TextInputEditText mInputEmail, mInputPassword;
     private ProgressBar mProgressBar;
     private FirebaseAuth mFirebaseAuth;
@@ -243,4 +243,13 @@ public class UserLoginActivity extends AppCompatActivity implements View.OnClick
     }
 
 
+    @Override
+    public void showError(String error) {
+
+    }
+
+    @Override
+    public void showMessage(String message) {
+
+    }
 }
