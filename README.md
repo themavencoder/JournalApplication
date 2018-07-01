@@ -4,7 +4,10 @@
 
 #	Journal Application #
 
-This journal application is utility application for Android. It allows clients to create a diary entry, review diary entries and also add or modify diary entries. It uses firebase for authentication. Clients are able to log in using a valid email address and also meeting password requirements for the application. All entries are also stored in a remote repository using Firebase and local repository using SQLite.
+This journal application is utility application for Android. It allows clients to create a diary entry, review diary entries and also add or modify diary entries. It uses firebase for authentication. Clients are able to log in using a valid email address and also meeting password requirements for the application. All entries are also stored in a remote repository using Firebase and local repository using SQLite. Both the MVC and MVP design guidelines are used in the journal application. 
+
+![deviceart](https://user-images.githubusercontent.com/15139694/42136010-dfd6d80e-7d4b-11e8-9fdf-4b5b2a659fa8.png)
+
 
 
 ##	Getting Started  ##
@@ -21,16 +24,16 @@ Firebase: Firebase is Google's mobile platform that helps you quickly develop hi
 
 Follow this steps if you want to get a local copy of the project on your machine. 
 
-**1. First, clone the repository into a local directory and checkout the master branch: **
+**1. First, clone the repository into a local directory and checkout the master branch if MVC or the mvp branch if MVP: **
 ```sh
 git clone https://github.com/themavencoder/JournalApplication.git
 
 ```
 **2. Import the project to Android Studio.**
 
-	1. In Android Studio, go to File -> New -> Import project.
-	2. Follow the dialog folder to choose where you cloned the project and click on open.
-	3. Android Studio imports it and builds it for you.
+1. In Android Studio, go to File -> New -> Import project.
+2. Follow the dialog folder to choose where you cloned the project and click on open.
+3. Android Studio imports it and builds it for you.
 
 
 You can now run the project in an Android Emulator or a real Android Device.
@@ -54,16 +57,16 @@ You do not need any device to run this test. To run this test, open a terminal a
 
 
 ```gradle
-]./gradlew test
+./gradlew test
 ```
 
 
 ### Built With
 
 
-- [Java](https://java.com) - Java for JVM
-- [SQLite](https://developer.android.com/training/data-storage/sqlite) - The Opensource relational database for Android
-- [Firebase](https://firebase.google.com/) - For authentication and data persistence.
+-[Java](https://java.com) - Java for JVM
+-[SQLite](https://developer.android.com/training/data-storage/sqlite) - The Opensource relational database for Android
+-[Firebase](https://firebase.google.com/) - For authentication and data persistence.
 
 ### Contributing
 
@@ -78,7 +81,7 @@ You do not need any device to run this test. To run this test, open a terminal a
 	This project is licensed under the MIT License - see the LICENSE.md file for details.
 
 ##	Acknowledgments
-- [PurpleBooth](https://firebase.google.com/) - for the README.md template.
-- [Ravi Tamada](https://www.androidhive.info/)
+-[PurpleBooth](https://firebase.google.com/) - for the README.md template.
+-[Ravi Tamada](https://www.androidhive.info/)
 	
 
