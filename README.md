@@ -9,6 +9,9 @@ This journal application is utility application for Android. It allows clients t
 ![deviceart](https://user-images.githubusercontent.com/15139694/42136112-b10a3690-7d4d-11e8-9e28-491084ccff9c.png)
 ![ui screen_framed](https://user-images.githubusercontent.com/15139694/42137137-292d1b54-7d5f-11e8-9257-bae54b2cb60a.png) 
 ![002 google log in_framed](https://user-images.githubusercontent.com/15139694/42137279-82b8c5cc-7d61-11e8-89e4-af4e65e68107.png)
+![008 deleting and editing journal entries 1 _framed](https://user-images.githubusercontent.com/15139694/42137409-7ccaf5c0-7d63-11e8-9f5f-85456b571129.png)
+
+
 
 
 
