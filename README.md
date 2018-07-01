@@ -2,7 +2,12 @@
 
 This journal application allows clients to create a diary entry, review diary entries and also add or modify diary entries. It uses firebase for authentication. Clients are able to log in using a valid email address and also meeting password requirements for the application. All entries are also stored in a remote repository using Firebase and local repository using SQLite.
 
-{<img src="https://api.codeclimate.com/v1/badges/38320312fdc180159372/maintainability" />}[https://codeclimate.com/github/themavencoder/JournalApplication/maintainability]
+<img src="https://api.codeclimate.com/v1/badges/38320312fdc180159372/maintainability" />[https://codeclimate.com/github/themavencoder/JournalApplication/maintainability]
+.. image:: https://api.codeclimate.com/v1/badges/38320312fdc180159372/maintainability
+   :target: https://codeclimate.com/github/themavencoder/JournalApplication/maintainability
+   :alt: Maintainability
+   <a href="https://codeclimate.com/github/themavencoder/JournalApplication/maintainability"><img src="https://api.codeclimate.com/v1/badges/38320312fdc180159372/maintainability" /></a>
+   [![Maintainability](https://api.codeclimate.com/v1/badges/38320312fdc180159372/maintainability)](https://codeclimate.com/github/themavencoder/JournalApplication/maintainability)
 
 ##	Getting Started
 
