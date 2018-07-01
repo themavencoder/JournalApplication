@@ -35,6 +35,7 @@ import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 
+@SuppressWarnings("unused")
 public class UserSignupActivity extends AppCompatActivity implements View.OnClickListener {
     private TextInputEditText mInputEmail, mInputPassword;
     private ProgressBar mProgressBar;
