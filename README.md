@@ -7,8 +7,8 @@
 This journal application is utility application for Android. It allows clients to create a diary entry, review diary entries and also add or modify diary entries. It uses firebase for authentication. Clients are able to log in using a valid email address and also meeting password requirements for the application. All entries are also stored in a remote repository using Firebase and local repository using SQLite. **Both the MVC and MVP design guidelines are used in this journal application.** 
 
 ![deviceart](https://user-images.githubusercontent.com/15139694/42136112-b10a3690-7d4d-11e8-9e28-491084ccff9c.png)
-![ui screen_framed](https://user-images.githubusercontent.com/15139694/42137137-292d1b54-7d5f-11e8-9257-bae54b2cb60a.png) **login with email and password or google+**
-
+![ui screen_framed](https://user-images.githubusercontent.com/15139694/42137137-292d1b54-7d5f-11e8-9257-bae54b2cb60a.png) 
+![002 google log in_framed](https://user-images.githubusercontent.com/15139694/42137279-82b8c5cc-7d61-11e8-89e4-af4e65e68107.png)
 
 
 
@@ -67,11 +67,11 @@ You do not need any device to run this test. To run this test, open a terminal a
 ### Built With
 
 
-	-[Java](https://java.com) - Java for JVM
+-[Java](https://java.com) - Java for JVM
 
-	-[SQLite](https://developer.android.com/training/data-storage/sqlite) - The Opensource relational database for Android
+-[SQLite](https://developer.android.com/training/data-storage/sqlite) - The Opensource relational database for Android
 
-	-[Firebase](https://firebase.google.com/) - For authentication and data persistence.
+-[Firebase](https://firebase.google.com/) - For authentication and data persistence.
 
 ### Contributing
 
@@ -86,8 +86,8 @@ You do not need any device to run this test. To run this test, open a terminal a
 	This project is licensed under the MIT License - see the LICENSE.md file for details.
 
 ##	Acknowledgments
-	-[PurpleBooth](https://firebase.google.com/) - for the README.md template.
+-[PurpleBooth](https://firebase.google.com/) - for the README.md template.
 
-	-[Ravi Tamada](https://www.androidhive.info/)
+-[Ravi Tamada](https://www.androidhive.info/)
 	
 
