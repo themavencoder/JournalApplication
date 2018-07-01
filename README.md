@@ -1,10 +1,10 @@
 <img src="https://api.codeclimate.com/v1/badges/38320312fdc180159372/maintainability" /> 
 
-[Code Climate](https://codeclimate.com/github/themavencoder/JournalApplication/maintainability).	
+[Code Climate Test Report](https://codeclimate.com/github/themavencoder/JournalApplication/maintainability).	
 
-###	Journal Application ###
+#	Journal Application #
 
-This journal application allows clients to create a diary entry, review diary entries and also add or modify diary entries. It uses firebase for authentication. Clients are able to log in using a valid email address and also meeting password requirements for the application. All entries are also stored in a remote repository using Firebase and local repository using SQLite.
+This journal application is utility application for Android. It allows clients to create a diary entry, review diary entries and also add or modify diary entries. It uses firebase for authentication. Clients are able to log in using a valid email address and also meeting password requirements for the application. All entries are also stored in a remote repository using Firebase and local repository using SQLite.
 
 
 ##	Getting Started  ##
@@ -21,8 +21,7 @@ Firebase: Firebase is Google's mobile platform that helps you quickly develop hi
 
 Follow this steps if you want to get a local copy of the project on your machine. 
 
-**1. First, clone the repository into a local directory and checkout the desired
-branch: **
+**1. First, clone the repository into a local directory and checkout the master branch: **
 ```sh
 git clone https://github.com/themavencoder/JournalApplication.git
 
@@ -45,7 +44,7 @@ Journal Application comes with both Instrumented tests and Unit tests.
 To run the instrumentation tests, you need an Android Emulator or a real android device Once you have any of this, open a terminal in Android STudio and run the command below.
 
 ```gradle
-]./gradlew connectedAndroidTest
+./gradlew connectedAndroidTest
 ```
 		 
 
