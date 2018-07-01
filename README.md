@@ -21,7 +21,7 @@ Firebase: Firebase is Google's mobile platform that helps you quickly develop hi
 
 Follow this steps if you want to get a local copy of the project on your machine. 
 
-**1. First, clone the repository into a local directory and checkout the master branch: **
+**1. First, clone the repository into a local directory and checkout the master branch:**
 ```sh
 git clone https://github.com/themavencoder/JournalApplication.git
 
@@ -54,7 +54,7 @@ You do not need any device to run this test. To run this test, open a terminal a
 
 
 ```gradle
-]./gradlew test
+./gradlew test
 ```
 
 
